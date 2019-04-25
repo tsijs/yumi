@@ -33,7 +33,7 @@
 #ifndef YUMI_HW_EGM_H
 #define YUMI_HW_EGM_H
 
-// #include <yumi_hw/yumi_hw.h>
+#include <yumi_hw/yumi_hw.h>
 
 #include <boost/shared_ptr.hpp>
 #include <boost/thread.hpp>
@@ -51,57 +51,55 @@
 using namespace abb::egm;
 using namespace abb::rws;
 
-struct EGMActivateData : public RAPIDRecord {
-  EGMActivateData() : RAPIDRecord("EGMActivateArgs") {
+
+struct EGMData : public RAPIDRecord
+{
+  EGMData()
+    : RAPIDRecord("EGM_RECORD")
+  {
     components_.push_back(&comm_timeout);
     components_.push_back(&tool_name);
     components_.push_back(&wobj_name);
     components_.push_back(&cond_min_max);
     components_.push_back(&lp_filter);
     components_.push_back(&max_speed_deviation);
-  }
-  /**
-  * \brief EGM communication timeout [s].
-  */
-  RAPIDNum comm_timeout;
-  /**
-  * \brief The tool to use.
-  */
-  RAPIDString tool_name;
-
-  /**
-  * \brief The work object to use.
-  */
-  RAPIDString wobj_name;
-
-  /**
-  * \brief Condition value [deg or mm] for when the EGM correction is considered
-  * to be finished.
-  *
-  * E.g. for joint mode, then the condition is fulfilled when the joints are
-  * within [-cond_min_max, cond_min_max].
-  */
-  RAPIDNum cond_min_max;
-
-  /**
-  * \brief Low pass filer bandwidth for the EGM controller [Hz].
-  */
-  RAPIDNum lp_filter;
-
-  /**
-  * \brief Maximum admitted joint speed change [deg/s]:
-  *
-  * Note: Take care if setting this higher than the lowest max speed [deg/s],
-  *       out of all the axis max speeds (found in the robot's data sheet).
-  */
-  RAPIDNum max_speed_deviation;
-};
-struct EGMRunData : public RAPIDRecord {
-  EGMRunData() : RAPIDRecord("EGMRunArgs") {
     components_.push_back(&cond_time);
     components_.push_back(&ramp_in_time);
     components_.push_back(&pos_corr_gain);
   }
+  /**
+   * \brief EGM communication timeout [s].
+   */
+  RAPIDNum comm_timeout;
+  /**
+   * \brief The tool to use.
+   */
+  RAPIDString tool_name;
+  
+  /**
+   * \brief The work object to use.
+   */
+  RAPIDString wobj_name;
+
+  /**
+   * \brief Condition value [deg or mm] for when the EGM correction is considered to be finished.
+   * 
+   * E.g. for joint mode, then the condition is fulfilled when the joints are within [-cond_min_max, cond_min_max].
+   */
+  RAPIDNum cond_min_max;
+  
+  /**
+   * \brief Low pass filer bandwidth for the EGM controller [Hz].
+   */
+  RAPIDNum lp_filter;
+
+  /**
+   * \brief Maximum admitted joint speed change [deg/s]:
+   * 
+   * Note: Take care if setting this higher than the lowest max speed [deg/s],
+   *       out of all the axis max speeds (found in the robot's data sheet).
+   */
+  RAPIDNum max_speed_deviation;
 
   RAPIDNum cond_time;
   RAPIDNum ramp_in_time;
@@ -152,8 +150,8 @@ public:
   /** \brief Initializes EGM + RWS connection to the robot
    *
    */
-  bool init(const std::string &ip, const unsigned short &port,
-            const int &port_l, const int &port_r);
+  bool init(const std::string &ip, const unsigned short &port_rws,
+            const int &port_egm);
 
   bool stop();
 
@@ -238,7 +236,7 @@ protected:
 
   bool sendEGMParams();
 
-  void setEGMParams(EGMData* egm_data);
+  void setEGMParams(EGMData& egm_data);
 
   void configureEGM(boost::shared_ptr<EGMControllerInterface> egm_interface);
 
@@ -266,10 +264,9 @@ protected:
   boost::shared_ptr<EGMControllerInterface> egm_interface_;
 
   // feedback and status read from the egm interface
-  boost::shared_ptr<abb::egm::wrapper::Input> arm_input_;
-  boost::shared_ptr<abb::egm::wrapper::Status> arm_status_;
-
-  boost::shared_ptr<abb::egm::wrapper::Output> arm_output_;
+  boost::shared_ptr<abb::egm::wrapper::Input> input_;
+  boost::shared_ptr<abb::egm::wrapper::Status> status_;
+  boost::shared_ptr<abb::egm::wrapper::Output> output_;
 
   // joint velocity commands sent to the egm interface
 
@@ -277,8 +274,7 @@ protected:
   boost::asio::io_service io_service_;
   boost::thread_group io_service_threads_;
 
-  EGMRunData egm_run_params_;
-  EGMActivateData egm_activate_params_;
+  EGMData egm_params_;
 
   double max_joint_velocity_;
 

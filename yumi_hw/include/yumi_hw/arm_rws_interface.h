@@ -1,3 +1,15 @@
+#pragma once
+
+#include <boost/thread.hpp>
+#include <boost/thread/mutex.hpp>
+
+#include <simple_message/message_handler.h>
+#include <simple_message/message_manager.h>
+#include <simple_message/messages/joint_message.h>
+#include <simple_message/smpl_msg_connection.h>
+#include <simple_message/socket/tcp_client.h>
+#include <simple_message/socket/tcp_socket.h>
+
 /**
   * Overrides message handler: keeps joint states thread-safe.
   */

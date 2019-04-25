@@ -2,6 +2,7 @@
 #define YUMI_HW_RWS_H
 
 #include <yumi_hw/yumi_hw.h>
+#include <yumi_hw/arm_rws_interface.h>
 
 #include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>
@@ -29,7 +30,7 @@ public:
 
   // Init, read, and write, with FRI hooks
   bool init();
-HW
+
   /// Copies the last received joint state out to the controller manager
   void read(ros::Time time, ros::Duration period);
 
