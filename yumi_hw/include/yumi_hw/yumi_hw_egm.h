@@ -2,6 +2,7 @@
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2017, Francisco Vina, francisco.vinab@gmail.com
+ *               2018, Yoshua Nava, yoshua.nava.chocron@gmail.com
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,245 +30,296 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef __YUMI_HW_EGM_H
-#define __YUMI_HW_EGM_H
+#ifndef YUMI_HW_EGM_H
+#define YUMI_HW_EGM_H
 
-#include <yumi_hw/yumi_hw.h>
-
-#include <boost/thread/mutex.hpp>
-#include <boost/thread.hpp>
+#include "yumi_hw/yumi_hw.h"
 
 #include <boost/shared_ptr.hpp>
+#include <boost/thread.hpp>
+#include <boost/thread/mutex.hpp>
 
+#include <abb_libegm/egm_controller_interface.h>
+#include <abb_librws/rws_interface.h>
+#include <abb_librws/rws_simple_state_machine_interface.h>
 #include <ros/ros.h>
-#include <abb_rws_interface/rws_interface_yumi.h>
-#include <abb_egm_interface/egm_interface_default.h>
-
-#ifndef N_YUMI_JOINTS
-#define N_YUMI_JOINTS 14
-#endif
 
 #ifndef MAX_NUMBER_OF_EGM_CONNECTIONS
-#define MAX_NUMBER_OF_EGM_CONNECTIONS 4
+#define MAX_NUMBER_OF_EGM_CONNECTIONS 1
 #endif
+using namespace abb::egm;
+using namespace abb::rws;
 
+struct EGMActivateData : public RAPIDRecord {
+  EGMActivateData() : RAPIDRecord("EGMActivateArgs") {
+    components_.push_back(&comm_timeout);
+    components_.push_back(&tool_name);
+    components_.push_back(&wobj_name);
+    components_.push_back(&cond_min_max);
+    components_.push_back(&lp_filter);
+    components_.push_back(&max_speed_deviation);
+  }
+  /**
+  * \brief EGM communication timeout [s].
+  */
+  RAPIDNum comm_timeout;
+  /**
+  * \brief The tool to use.
+  */
+  RAPIDString tool_name;
 
-using namespace abb::egm_interface;
-using namespace abb::rws_interface;
+  /**
+  * \brief The work object to use.
+  */
+  RAPIDString wobj_name;
+
+  /**
+  * \brief Condition value [deg or mm] for when the EGM correction is considered
+  * to be finished.
+  *
+  * E.g. for joint mode, then the condition is fulfilled when the joints are
+  * within [-cond_min_max, cond_min_max].
+  */
+  RAPIDNum cond_min_max;
+
+  /**
+  * \brief Low pass filer bandwidth for the EGM controller [Hz].
+  */
+  RAPIDNum lp_filter;
+
+  /**
+  * \brief Maximum admitted joint speed change [deg/s]:
+  *
+  * Note: Take care if setting this higher than the lowest max speed [deg/s],
+  *       out of all the axis max speeds (found in the robot's data sheet).
+  */
+  RAPIDNum max_speed_deviation;
+};
+struct EGMRunData : public RAPIDRecord {
+  EGMRunData() : RAPIDRecord("EGMRunArgs") {
+    components_.push_back(&cond_time);
+    components_.push_back(&ramp_in_time);
+    components_.push_back(&pos_corr_gain);
+  }
+
+  RAPIDNum cond_time;
+  RAPIDNum ramp_in_time;
+  RAPIDNum pos_corr_gain;
+};
 
 // Wrapper class for setting up EGM and RWS connections to the Yumi robot
 // with their corresponding IO service threads
 // It assumes velocity control mode
-class YumiEGMInterface
-{
+class YumiEGMInterface {
 
 public:
+  YumiEGMInterface(const double &exponential_smoothing_alpha = 0.04);
 
+  ~YumiEGMInterface();
 
-    YumiEGMInterface();
+  /** \brief Gets parameters for EGM & RWS connections from the ROS parameter
+   * server.
+   * The RAPID module TRobEGM.sys contains a brief description of the EGM
+   * parameters:
+   * LOCAL RECORD EGM_RECORD
+   *   num comm_timeout;         ! Communication timeout [s].
+   *
+   *   string tool_name;         ! Name of a defined tool (e.g. "tool0").
+   *   string wobj_name;         ! Name of a defined work object (e.g. "wobj0").
+   *   num cond_min_max;         ! Condition value [deg or mm] for when the EGM
+   * correction is considered
+   *                             ! to be finished. E.g. for joint mode, then the
+   * condition is fulfilled when
+   *                             ! the joints are within [-MinMax, MinMax].
+   *   num lp_filter;            ! Low pass filer bandwidth of the EGM
+   * controller [Hz].
+   *   num max_speed_deviation;  ! Maximum admitted joint speed change [deg/s]:
+   *                             !   Note: Should not be set higher than the
+   * lowest max speed [deg/s],
+   *                             !         out of all the axis max speeds (found
+   * in the robot's data sheet).
+   *
+   *   num cond_time;            ! Condition time [s].
+   *   num ramp_in_time;         ! Duration for ramp in [s].
+   *   num pos_corr_gain;        ! Position correction gain of the EGM
+   * controller.
+   * ENDRECORD
+   *
+   */
+  void getParams();
 
-    ~YumiEGMInterface();
+  /** \brief Initializes EGM + RWS connection to the robot
+   *
+   */
+  bool init(const std::string &ip, const unsigned short &port,
+            const int &port_l, const int &port_r);
 
-    /** \brief Gets parameters for EGM & RWS connections from the ROS parameter server.
-     * The RAPID module TRobEGM.sys contains a brief description of the EGM
-     * parameters:
-     * LOCAL RECORD EGM_RECORD
-     *   num comm_timeout;         ! Communication timeout [s].
-     *
-     *   string tool_name;         ! Name of a defined tool (e.g. "tool0").
-     *   string wobj_name;         ! Name of a defined work object (e.g. "wobj0").
-     *   num cond_min_max;         ! Condition value [deg or mm] for when the EGM correction is considered
-     *                             ! to be finished. E.g. for joint mode, then the condition is fulfilled when
-     *                             ! the joints are within [-MinMax, MinMax].
-     *   num lp_filter;            ! Low pass filer bandwidth of the EGM controller [Hz].
-     *   num max_speed_deviation;  ! Maximum admitted joint speed change [deg/s]:
-     *                             !   Note: Should not be set higher than the lowest max speed [deg/s],
-     *                             !         out of all the axis max speeds (found in the robot's data sheet).
-     *
-     *   num cond_time;            ! Condition time [s].
-     *   num ramp_in_time;         ! Duration for ramp in [s].
-     *   num pos_corr_gain;        ! Position correction gain of the EGM controller.
-     * ENDRECORD
-     *
-     */
-    void getParams();
+  bool stop();
 
-    /** \brief Initializes EGM + RWS connection to the robot
-     *
-     */
-    bool init(const std::string& ip, const std::string& port);
+  /** \brief gets the current joint positions/velocities/accelerations from the
+   * robot.
+   *
+   * \param joint_* the joint positions/velocities/accelerations. Elements 0-6
+   * correspond to the
+   *  left arm and elements 7-13 to the right arm. The joints are ordered as in
+   * the URDF,
+   * starting from the shoulder until the wrist.
+   */
+  void getCurrentJointStates(float (&joint_pos)[N_YUMI_JOINTS],
+                             float (&joint_vel)[N_YUMI_JOINTS]);
 
-    bool stop();
-
-
-    /** \brief gets the current joint positions/velocities/accelerations from the robot.
-     *
-     * \param joint_* the joint positions/velocities/accelerations. Elements 0-6 correspond to the
-     *  left arm and elements 7-13 to the right arm. The joints are ordered as in the URDF,
-     * starting from the shoulder until the wrist.
-     */
-    void getCurrentJointStates(float (&joint_pos)[N_YUMI_JOINTS],
-                               float (&joint_vel)[N_YUMI_JOINTS],
-                               float (&joint_acc)[N_YUMI_JOINTS]);
-
-
-    /** \brief sets the joint velocities to command to the robot.
-     *
-     * \param joint_vel_targets Array with the joint velocity commands, where elements 0-6
-     * correspond to the left arm and elements 7-13 correspond to the right arm.
-     */
-    void setJointVelTargets(float (&joint_vel_targets)[N_YUMI_JOINTS]);
+  /** \brief sets the joint velocities to command to the robot.
+   *
+   * \param joint_vel_targets Array with the joint velocity commands, where
+   * elements 0-6
+   * correspond to the left arm and elements 7-13 correspond to the right arm.
+   */
+  void setJointVelTargets(float (&joint_vel_targets)[N_YUMI_JOINTS]);
 
 protected:
+  /** \brief Copies EGM protobuf joint states (pos, vel or acc) collected from
+   * the EGM interface to an array.
+   *
+   * \param joint_states These correspond to YuMi's joints 1,2,4,5,6,7.
+   *
+   * \param external_joint_states This corresponds to YuMi's 3rd joint, the
+   * redudancy joint.
+   *
+   * \param joint_array The array at which the joint states are copied, in the
+   * same order
+   * as the robot's URDF, starting from the shoulder until the wrist.
+   */
+  /** \brief Extracts joint pos, vel and acc from an EGM protobuf joint space
+   * message
+   * and copies them to separate float arrays.
+   *
+   * \param joint_space EGM joint space protobuf message from which to extract
+   * the joint variables
+   *
+   * \param joint_pos
+   *
+   * \param joint_vel
+   *
+   * \param joint_acc
+   */
+  void copyEGMInputToArray(::wrapper::Input *input, float *joint_pos,
+                           float *joint_vel) const;
 
+  /** \brief Copies protobuf joint states (pos, vel or acc) collected from
+   * the EGM interface to an array.
+   *
+   * \param joint_states These correspond to YuMi's joints 1,2,4,5,6,7.
+   *
+   * \param external_joint_states This corresponds to YuMi's 3rd joint, the
+   * redudancy joint.
+   *
+   * \param joint_array The array at which the joint states are copied, in the
+   * same order
+   * as the robot's URDF, starting from the shoulder until the wrist.
+   */
+  void copyArrayToEGMOutput(float *joint_array,
+                            ::wrapper::Output *output) const;
 
-    /** \brief Preallocate memory for the joint space messages used for interfacing with the EGM server.
-     *
-     */
-    void initEGMJointSpaceMessage(proto::JointSpace *joint_space_message);
+  bool initRWS();
 
-    /** \brief Set to zero joint states. Allocate 6 joint states and 1 external joint state
-     *
-     */
-    void initEGMJointStateMessage(google::protobuf::RepeatedField<double>* joint_states,
-                                  google::protobuf::RepeatedField<double>* external_joint_state);
+  bool initEGM();
 
+  bool initOutput(boost::shared_ptr<abb::egm::wrapper::Output> &output,
+                  boost::shared_ptr<abb::egm::wrapper::Input> &input);
 
-    /** \brief Copies EGM protobuf joint states (pos, vel or acc) collected from
-     * the EGM interface to an array.
-     *
-     * \param joint_states These correspond to YuMi's joints 1,2,4,5,6,7.
-     *
-     * \param external_joint_states This corresponds to YuMi's 3rd joint, the redudancy joint.
-     *
-     * \param joint_array The array at which the joint states are copied, in the same order
-     * as the robot's URDF, starting from the shoulder until the wrist.
-     */
-    void copyEGMJointStateToArray(const google::protobuf::RepeatedField<double>& joint_states,
-                                  const google::protobuf::RepeatedField<double>& external_joint_states,
-                                  float* joint_array) const;
+  bool initEGMArm(boost::shared_ptr<EGMControllerInterface> &interface);
 
-    /** \brief Extracts joint pos, vel and acc from an EGM protobuf joint space message
-     * and copies them to separate float arrays.
-     *
-     * \param joint_space EGM joint space protobuf message from which to extract the joint variables
-     *
-     * \param joint_pos
-     *
-     * \param joint_vel
-     *
-     * \param joint_acc
-     */
-    void copyEGMJointSpaceToArray(const proto::JointSpace &joint_space,
-                                  float* joint_pos, float* joint_vel, float* joint_acc ) const;
+  /** \brief Sends EGM parameters collected from the ROS parameter server to the
+   * robot controller through RWS (TCP connection), such as
+   * LP filter bandwidth, condition time, etc. For more details see getParams()
+   */
+  //#if 0
+  bool sendEGMParams();
 
+  void setEGMParams(EGMData *egm_data);
+  //#endif
+  void configureEGM(boost::shared_ptr<EGMControllerInterface> egm_interface);
 
-    /** \brief Copies protobuf joint states (pos, vel or acc) collected from
-     * the EGM interface to an array.
-     *
-     * \param joint_states These correspond to YuMi's joints 1,2,4,5,6,7.
-     *
-     * \param external_joint_states This corresponds to YuMi's 3rd joint, the redudancy joint.
-     *
-     * \param joint_array The array at which the joint states are copied, in the same order
-     * as the robot's URDF, starting from the shoulder until the wrist.
-     */
-    void copyArrayToEGMJointState(const float* joint_array,
-                                  google::protobuf::RepeatedField<double>* joint_states,
-                                  google::protobuf::RepeatedField<double>* external_joint_states) const;
+  bool startEGM();
 
+  bool stopEGM();
 
-    bool initRWS();
+  /* RWS */
+  // RWS interface which uses TCP communication for starting the EGM joint mode
+  // on YuMi
+  // boost::shared_ptr<RWSInterfaceYuMi> rws_interface_;
+  boost::shared_ptr<RWSSimpleStateMachineInterface> rws_interface_;
 
-    bool initEGM();
+  // RWS connection parameters
+  std::string rws_ip_;
+  unsigned short rws_port_;
+  double rws_delay_time_;
+  int rws_max_signal_retries_;
+  bool rws_connection_ready_;
 
-    /** \brief Sends EGM parameters collected from the ROS parameter server to the robot controller through RWS (TCP connection), such as
-     * LP filter bandwidth, condition time, etc. For more details see getParams()
-     */
-    bool sendEGMParams();
+  /* EGM */
+  // EGM interface which uses UDP communication for realtime robot control @ 250
+  // Hz
+  unsigned short egm_port_left_;
+  unsigned short egm_port_right_;
+  boost::shared_ptr<EGMControllerInterface> left_arm_egm_interface_;
+  boost::shared_ptr<EGMControllerInterface> right_arm_egm_interface_;
 
-    void setEGMParams(EGMData* egm_data);
+  // feedback and status read from the egm interface
+  boost::shared_ptr<abb::egm::wrapper::Input> left_arm_input_;
+  boost::shared_ptr<abb::egm::wrapper::Status> left_arm_status_;
+  boost::shared_ptr<abb::egm::wrapper::Input> right_arm_input_;
+  boost::shared_ptr<abb::egm::wrapper::Status> right_arm_status_;
 
-    void configureEGM(boost::shared_ptr<EGMInterfaceDefault> egm_interface);
+  boost::shared_ptr<abb::egm::wrapper::Output> left_arm_output_;
+  boost::shared_ptr<abb::egm::wrapper::Output> right_arm_output_;
 
-    bool startEGM();
+  // joint velocity commands sent to the egm interface
 
-    bool stopEGM();
+  // io service used for EGM
+  boost::asio::io_service io_service_;
+  boost::thread_group io_service_threads_;
 
+  EGMRunData egm_run_params_;
+  EGMActivateData egm_activate_params_;
 
-    /* RWS */
-    // RWS interface which uses TCP communication for starting the EGM joint mode on YuMi
-    boost::shared_ptr<RWSInterfaceYuMi> rws_interface_;
+  double max_joint_velocity_;
 
-    // RWS connection parameters
-    std::string rws_ip_, rws_port_;
-    double rws_delay_time_;
-    int rws_max_signal_retries_;
-    bool rws_connection_ready_;
-
-    /* EGM */
-
-    // EGM interface which uses UDP communication for realtime robot control @ 250 Hz
-    boost::shared_ptr<EGMInterfaceDefault> left_arm_egm_interface_;
-    boost::shared_ptr<EGMInterfaceDefault> right_arm_egm_interface_;
-
-    // feedback and status read from the egm interface
-    boost::shared_ptr<abb::egm_interface::proto::Feedback> left_arm_feedback_;
-    boost::shared_ptr<abb::egm_interface::proto::RobotStatus> left_arm_status_;
-    boost::shared_ptr<abb::egm_interface::proto::Feedback> right_arm_feedback_;
-    boost::shared_ptr<abb::egm_interface::proto::RobotStatus> right_arm_status_;
-
-    boost::shared_ptr<abb::egm_interface::proto::JointSpace> left_arm_joint_vel_targets_;
-    boost::shared_ptr<abb::egm_interface::proto::JointSpace> right_arm_joint_vel_targets_;
-
-    // joint velocity commands sent to the egm interface
-
-    // io service used for EGM
-    boost::asio::io_service io_service_;
-    boost::thread_group io_service_threads_;
-
-    EGMData egm_params_;
-
-    double max_joint_velocity_;
-
-    bool has_params_;
-
+  bool has_params_;
 };
 
-
-class YumiHWEGM : public YumiHW
-{
+class YumiHWEGM : public YumiHW {
 public:
-    YumiHWEGM();
+  YumiHWEGM(const double &exponential_smoothing_alpha = 0.04);
 
-    ~YumiHWEGM();
+  ~YumiHWEGM();
 
-    void setup(const std::string& ip, const std::string& port);
+  void setup(const std::string &ip, const std::string &port_rws,
+             const int &port_egm);
 
-    bool init();
+  bool init();
 
-    void read(ros::Time time, ros::Duration period);
+  void read(ros::Time time, ros::Duration period);
 
-    void write(ros::Time time, ros::Duration period);
-
+  void write(ros::Time time, ros::Duration period);
 
 private:
-    bool is_initialized_;
+  bool is_initialized_;
 
-    YumiEGMInterface yumi_egm_interface_;
+  YumiEGMInterface yumi_egm_interface_;
 
-    boost::mutex data_buffer_mutex_;
+  boost::mutex data_buffer_mutex_;
 
-    std::string ip_, port_;
+  std::string ip_;
+  unsigned short port_rws_;
+  unsigned short port_egm_;
 
-    // command buffers
-    float joint_vel_targets_[N_YUMI_JOINTS];
+  // command buffers
+  float joint_vel_targets_[N_YUMI_JOINTS];
 
-    // data buffers
-    float joint_pos_[N_YUMI_JOINTS];
-    float joint_vel_[N_YUMI_JOINTS];
-    float joint_acc_[N_YUMI_JOINTS];
+  // data buffers
+  float joint_pos_[N_YUMI_JOINTS];
+  float joint_vel_[N_YUMI_JOINTS];
 };
 
-
-#endif
+#endif // YUMI_HW_EGM_H

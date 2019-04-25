@@ -1,48 +1,54 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(yumi_hw)
+project(yumi_hw_interface)
 
 set(CMAKE_BUILD_TYPE RelWithDebInfo)
 add_definitions(-DROS=1)           # build using ROS libraries 
 add_definitions(-DLINUXSOCKETS=1)  # build using LINUX SOCKETS libraries 
 
 find_package(Boost REQUIRED COMPONENTS system thread QUIET)
-find_package(abb_egm_interface QUIET) 
-find_package(abb_rws_interface QUIET)
+find_package(abb_librws QUIET)
+find_package(abb_libegm QUIET)
+
 LIST(APPEND CATKIN_DEPENDS_LIST 
+  yumi_msgs
   cmake_modules
   control_toolbox
   controller_interface
   controller_manager
   hardware_interface
   joint_limits_interface
-  kdl_parser
   realtime_tools
   roscpp
+  simple_message
   std_msgs
   tf
   transmission_interface
   urdf
-  simple_message
-  message_generation
+  rospy
+#  message_generation
+#  kdl_parser
 )
 
+#add dynamic reconfigure api
+find_package(catkin REQUIRED dynamic_reconfigure)
 
-if (abb_rws_interface_FOUND)
+#generate_dynamic_reconfigure_options(
+#  cfg/rws.cfg
+#)
+
+if (abb_librws_FOUND)
   message("--   ABB RWS library found!")
   LIST(APPEND CATKIN_DEPENDS_LIST 
-    abb_rws_interface
+    abb_librws
   )
-  if (abb_egm_interface_FOUND)
+  if (abb_libegm_FOUND)
     message("--   ABB EGM library found!")
     message("--   All dependencies satisfied. The robot hardware interfaces (via EGM and industrial core sockets) will be built")
  
     LIST(APPEND CATKIN_DEPENDS_LIST 
-      abb_egm_interface
+      abb_libegm
     )
-    LIST(APPEND SOURCEFILES
-      src/yumi_hw_egm.cpp
-    )
- 
+
     add_definitions(-DHAVE_EGM=1)
   else()
     message("--   ABB EGM library not found")
@@ -57,18 +63,10 @@ endif()
 find_package(catkin REQUIRED COMPONENTS ${CATKIN_DEPENDS_LIST})
 
 LIST(APPEND SOURCEFILES
-  src/yumi_hw.cpp
-  src/yumi_hw_rws.cpp
-)
-
-add_service_files(
-  FILES
-  YumiGrasp.srv
-)
- 
-generate_messages(
-  DEPENDENCIES
-  std_msgs
+  src/yumi_hw/yumi_hw.cpp
+  src/yumi_hw/yumi_hw_rws.cpp
+  src/yumi_hw/arm_hw_egm.cpp
+  src/yumi_hw/yumi_egm.cpp
 )
 
 catkin_package(
@@ -80,12 +78,12 @@ catkin_package(
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
+  
 )
  
 add_library(${PROJECT_NAME}
   ${SOURCEFILES}
 )
- 
 add_executable(yumi_hw_ifce_node src/yumi_hw_ifce_node.cpp)
 add_executable(yumi_gripper_node src/yumi_gripper_node.cpp)
 add_dependencies(yumi_gripper_node ${PROJECT_NAME}_generate_messages_cpp)
