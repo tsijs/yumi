@@ -1,5 +1,4 @@
-#ifndef YUMI_HW_RWS_H
-#define YUMI_HW_RWS_H
+#pragma once
 
 #include <yumi_hw/yumi_hw.h>
 #include <yumi_hw/arm_rws_interface.h>
@@ -56,5 +55,3 @@ private:
   float read_joint_position_[N_JOINTS_ARM];
   float last_comm_[N_JOINTS_ARM];
 };
-
-#endif // YUMI_HW_RWS_H

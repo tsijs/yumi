@@ -72,41 +72,62 @@ void YumiEGMInterface::getParams() {
   nh.param("rws/max_signal_retries", rws_max_signal_retries_, 5);
 
   // EGM parameters
+  // with local variables due to problems with rapid type defs. 
+  bool use_presync;
+  nh.param("egm/use_presync", use_presync, false);
+  egm_settings_.use_presync = use_presync;
+
+  bool allow_egm_motions;
+  nh.param("egm/allow_egm_motions", allow_egm_motions, true);
+  egm_settings_.allow_egm_motions = allow_egm_motions;
+  
+  bool use_filtering;
+  nh.param("egm/use_filtering", use_filtering, false);
+  egm_settings_.setup_uc.use_filtering = use_filtering;
+
   double timeout;
   nh.param("egm/comm_timeout", timeout, 30.0);
-  egm_params_.comm_timeout = timeout;
+  egm_settings_.setup_uc.comm_timeout = timeout;
 
-  std::string tool_name;
-  nh.param("egm/tool_name", tool_name, std::string("tool0"));
-  egm_params_.tool_name = tool_name;
+  double sample_rate;
+  nh.param("egm/sample_rate", sample_rate, 4.0); // only multiples of 4 allowed. 
+  egm_settings_.activate.sample_rate = sample_rate;
 
-  std::string wobj_name;
-  nh.param("egm/wobj_name", wobj_name, std::string("wobj0"));
-  egm_params_.wobj_name = wobj_name;
+  // std::string tool_name;
+  // nh.param("egm/tool_name", tool_name, std::string("tool0"));
+  // egm_settings_.activate.tool = tool_name;
+
+  // std::string wobj_name;
+  // nh.param("egm/wobj_name", wobj_name, std::string("wobj0"));
+  // egm_settings_.wobj_name = wobj_name;
 
   double cond_min_max;
   nh.param("egm/cond_min_max", cond_min_max, 0.5);
-  egm_params_.cond_min_max = cond_min_max;
+  egm_settings_.activate.cond_min_max = cond_min_max;
 
   double lp_filter;
   nh.param("egm/lp_filter", lp_filter, 0.0);
-  egm_params_.lp_filter = lp_filter;
+  egm_settings_.activate.lp_filter = lp_filter;
 
   double max_speed_deviation;
-  nh.param("egm/max_speed_deviation", max_speed_deviation, 400.0);
-  egm_params_.max_speed_deviation = max_speed_deviation;
+  nh.param("egm/max_speed_deviation", max_speed_deviation, 10.0);
+  egm_settings_.activate.max_speed_deviation = max_speed_deviation;
 
   double condition_time;
   nh.param("egm/condition_time", condition_time, 10.0);
-  egm_params_.cond_time = condition_time;
+  egm_settings_.run.cond_time = condition_time;
 
   double ramp_in_time;
   nh.param("egm/ramp_in_time", ramp_in_time, 0.1);
-  egm_params_.ramp_in_time = ramp_in_time;
+   egm_settings_.run.ramp_in_time = ramp_in_time;
 
   double pos_corr_gain;
   nh.param("egm/pos_corr_gain", pos_corr_gain, 0.0);
-  egm_params_.pos_corr_gain = pos_corr_gain;
+  egm_settings_.run.pos_corr_gain = pos_corr_gain;
+
+  double ramp_out_time;
+  nh.param("egm/ramp_out_time", ramp_out_time, 10.0);
+  egm_settings_.stop.ramp_out_time = ramp_out_time;
 
   has_params_ = true;
 }
@@ -236,13 +257,14 @@ bool YumiEGMInterface::initRWS() {
                   << " / " << rws_port_);
 
   // rws_interface_.reset(new RWSInterfaceYuMi(rws_ip_, rws_port_));
-  rws_interface_.reset(new RWSSimpleStateMachineInterface(rws_ip_, rws_port_));
+  rws_interface_.reset(new RWSStateMachineInterface(rws_ip_, rws_port_));
+  
   ros::Duration(rws_delay_time_).sleep();
   std::cout << "  RWS interface created" << std::endl;
 
   // Check that RAPID is running on the robot and that robot is in AUTO mode
   // tribool problem
-
+  ROS_INFO_STREAM(rws_interface_->isRAPIDRunning().isTrue() << rws_interface_->isAutoMode().isTrue());
   if (!rws_interface_->isRAPIDRunning().isTrue()) {
     ROS_ERROR_STREAM(ros::this_node::getName() << ": robot unavailable, make"
   "sure that the RAPID program is running on the flexpendant.");
@@ -267,8 +289,8 @@ bool YumiEGMInterface::initRWS() {
   std::cout << "Connection ready" << std::endl;
   ros::Duration(rws_delay_time_).sleep();
 
-  // if (!startEGM())
-  //   return false;
+  if (!startEGM())
+    return false;
 
   // ros::NodeHandle nh;
   // rws_watchdog_timer_ = nh.createTimer(ros::Duration(rws_watchdog_period_),
@@ -277,7 +299,7 @@ bool YumiEGMInterface::initRWS() {
   return true;
 }
 
-bool YumiEGMInterface::initRWS(const boost::shared_ptr<RWSSimpleStateMachineInterface>& interface) {
+bool YumiEGMInterface::initRWS(const boost::shared_ptr<RWSStateMachineInterface>& interface) {
   ROS_INFO_STREAM("got already started rws pointer to a simplestatemachine interface. The settings are assumed to be set already");
 
   // rws_interface_.reset(new RWSInterfaceYuMi(rws_ip_, rws_port_));
@@ -308,8 +330,8 @@ bool YumiEGMInterface::initRWS(const boost::shared_ptr<RWSSimpleStateMachineInte
   std::cout << "Connection ready" << std::endl;
   ros::Duration(rws_delay_time_).sleep();
 
-  // if (!startEGM())
-  //   return false;
+  if (!startEGM())
+    return false;
 
   // ros::NodeHandle nh;
   // rws_watchdog_timer_ = nh.createTimer(ros::Duration(rws_watchdog_period_),
@@ -373,17 +395,17 @@ bool YumiEGMInterface::initEGM() {
 
 // #if 0
 bool YumiEGMInterface::sendEGMParams() {
-  EGMData egm_params;
+  RWSStateMachineInterface::EGMSettings egm_setting_rapid;
   
   // TODO get the task definition from a parameter..
-  bool success = rws_interface_->getEGMRecord(
+  bool success = rws_interface_->services().egm().getSettings(
       SystemConstants::RAPID::TASK_ROB_R,
-      &egm_params);
+      &egm_setting_rapid);
 
   ROS_INFO_STREAM("  get EGM Parameters"
                   << "\n");
   ROS_INFO_STREAM("    success? " << success << "\n");
-  ROS_INFO_STREAM("    egm_data: " << egm_params.constructRWSValueString()
+  ROS_INFO_STREAM("    egm_data: " << egm_setting_rapid.constructString()
                                    << "\n");
 
   if (!success) {
@@ -393,11 +415,11 @@ bool YumiEGMInterface::sendEGMParams() {
     return false;
   }
 
-  setEGMParams(egm_params);
+  setEGMParams(egm_setting_rapid);
 
-  success = rws_interface_->setEGMRecord(
+  success = rws_interface_->services().egm().setSettings(
       SystemConstants::RAPID::TASK_ROB_R, // task from parameter
-      &egm_params);
+      egm_setting_rapid);
 
   if (success) {
     ROS_INFO("EGM parameters correctly set.");
@@ -407,16 +429,24 @@ bool YumiEGMInterface::sendEGMParams() {
   return false;
 }
 
-void YumiEGMInterface::setEGMParams(EGMData& egm_data) {
-  egm_data.comm_timeout = egm_params_.comm_timeout;
-  egm_data.tool_name = egm_params_.tool_name;
-  egm_data.wobj_name = egm_params_.wobj_name;
-  egm_data.cond_min_max = egm_params_.cond_min_max;
-  egm_data.lp_filter = egm_params_.lp_filter;
-  egm_data.max_speed_deviation = egm_params_.max_speed_deviation;
-  egm_data.cond_time = egm_params_.cond_time;
-  egm_data.ramp_in_time = egm_params_.ramp_in_time;
-  egm_data.pos_corr_gain = egm_params_.pos_corr_gain;
+void YumiEGMInterface::setEGMParams(RWSStateMachineInterface::EGMSettings& egm_settings) {
+  egm_settings.allow_egm_motions  =   egm_settings_.allow_egm_motions ;
+  egm_settings.use_presync =   egm_settings_.use_presync;
+  egm_settings.setup_uc.use_filtering =   egm_settings_.setup_uc.use_filtering;
+  egm_settings.setup_uc.comm_timeout =   egm_settings_.setup_uc.comm_timeout;
+  // egm_settings.activate.tool =   egm_settings_.activate.tool; // this is not used for now. It seems to me that this should just be et properly in RS
+  // egm_settings.activate.wobj =   egm_settings_.activate.wobj; // and not get touched from here?
+  egm_settings.activate.correction_frame =   egm_settings_.activate.correction_frame;
+  egm_settings.activate.sensor_frame =   egm_settings_.activate.sensor_frame;
+  egm_settings.activate.cond_min_max =   egm_settings_.activate.cond_min_max;
+  egm_settings.activate.lp_filter =   egm_settings_.activate.lp_filter;
+  egm_settings.activate.sample_rate =   egm_settings_.activate.sample_rate;
+  egm_settings.activate.max_speed_deviation =   egm_settings_.activate.max_speed_deviation;
+  egm_settings.run.cond_time =   egm_settings_.run.cond_time;
+  egm_settings.run.ramp_in_time =   egm_settings_.run.ramp_in_time;
+  egm_settings.run.offset =   egm_settings_.run.offset;
+  egm_settings.run.pos_corr_gain =   egm_settings_.run.pos_corr_gain;
+  egm_settings.stop.ramp_out_time =   egm_settings_.stop.ramp_out_time;
 }
 // #endif
 
@@ -437,7 +467,7 @@ bool YumiEGMInterface::startEGM() {
 
   if (rws_interface_ && rws_connection_ready_) {
     for (int i = 0; i < rws_max_signal_retries_ && !egm_started; ++i) {
-      egm_started = rws_interface_->signalEGMStartJoint();
+      egm_started = rws_interface_->services().egm().signalEGMStartJoint();
 
       if (!egm_started) {
         ROS_ERROR_STREAM(ros::this_node::getName()
@@ -455,7 +485,7 @@ bool YumiEGMInterface::stopEGM() {
 
   if (rws_interface_ && rws_connection_ready_) {
     for (int i = 0; i < rws_max_signal_retries_ && !egm_stopped; ++i) {
-      egm_stopped = rws_interface_->signalEGMStop();
+      egm_stopped = rws_interface_->services().egm().signalEGMStop();
       if (!egm_stopped) {
         ROS_ERROR_STREAM(ros::this_node::getName()
                          << ": failed to send EGM stop signal! [Attempt "

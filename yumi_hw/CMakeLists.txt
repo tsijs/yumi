@@ -1,9 +1,11 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(yumi_hw_interface)
+project(yumi_hw)
 
 set(CMAKE_BUILD_TYPE RelWithDebInfo)
 add_definitions(-DROS=1)           # build using ROS libraries 
 add_definitions(-DLINUXSOCKETS=1)  # build using LINUX SOCKETS libraries 
+
+set (CMAKE_CXX_STANDARD 11)
 
 find_package(Boost REQUIRED COMPONENTS system thread QUIET)
 find_package(abb_librws QUIET)
@@ -64,9 +66,12 @@ find_package(catkin REQUIRED COMPONENTS ${CATKIN_DEPENDS_LIST})
 
 LIST(APPEND SOURCEFILES
   src/yumi_hw/yumi_hw.cpp
-  src/yumi_hw/yumi_hw_rws.cpp
-  src/yumi_hw/arm_hw_egm.cpp
-  src/yumi_hw/yumi_egm.cpp
+  # src/yumi_hw/yumi_hw_rws.cpp
+  src/yumi_hw/yumi_hw_egm.cpp
+  # src/yumi_hw/yumi_hw_gazebo.cpp
+  src/yumi_hw/arm_egm_interface.cpp
+  # src/yumi_hw/arm_rws_interface.cpp
+  
 )
 
 catkin_package(

@@ -41,7 +41,7 @@
 
 #include <abb_libegm/egm_controller_interface.h>
 #include <abb_librws/rws_interface.h>
-#include <abb_librws/rws_simple_state_machine_interface.h>
+#include <abb_librws/rws_state_machine_interface.h>
 #include <ros/ros.h>
 
 #ifndef MAX_NUMBER_OF_EGM_CONNECTIONS
@@ -52,60 +52,6 @@ using namespace abb::egm;
 using namespace abb::rws;
 
 
-struct EGMData : public RAPIDRecord
-{
-  EGMData()
-    : RAPIDRecord("EGM_RECORD")
-  {
-    components_.push_back(&comm_timeout);
-    components_.push_back(&tool_name);
-    components_.push_back(&wobj_name);
-    components_.push_back(&cond_min_max);
-    components_.push_back(&lp_filter);
-    components_.push_back(&max_speed_deviation);
-    components_.push_back(&cond_time);
-    components_.push_back(&ramp_in_time);
-    components_.push_back(&pos_corr_gain);
-  }
-  /**
-   * \brief EGM communication timeout [s].
-   */
-  RAPIDNum comm_timeout;
-  /**
-   * \brief The tool to use.
-   */
-  RAPIDString tool_name;
-  
-  /**
-   * \brief The work object to use.
-   */
-  RAPIDString wobj_name;
-
-  /**
-   * \brief Condition value [deg or mm] for when the EGM correction is considered to be finished.
-   * 
-   * E.g. for joint mode, then the condition is fulfilled when the joints are within [-cond_min_max, cond_min_max].
-   */
-  RAPIDNum cond_min_max;
-  
-  /**
-   * \brief Low pass filer bandwidth for the EGM controller [Hz].
-   */
-  RAPIDNum lp_filter;
-
-  /**
-   * \brief Maximum admitted joint speed change [deg/s]:
-   * 
-   * Note: Take care if setting this higher than the lowest max speed [deg/s],
-   *       out of all the axis max speeds (found in the robot's data sheet).
-   */
-  RAPIDNum max_speed_deviation;
-
-  RAPIDNum cond_time;
-  RAPIDNum ramp_in_time;
-  RAPIDNum pos_corr_gain;
-};
-
 // Wrapper class for setting up EGM and RWS connections to the Yumi robot
 // with their corresponding IO service threads
 // It assumes velocity control mode
@@ -115,7 +61,7 @@ public:
   YumiEGMInterface(const double &exponential_smoothing_alpha = 0.04);
 
   ~YumiEGMInterface();
-
+  // TODO: update these comments. 
   /** \brief Gets parameters for EGM & RWS connections from the ROS parameter
    * server.
    * The RAPID module TRobEGM.sys contains a brief description of the EGM
@@ -220,7 +166,7 @@ protected:
                             ::wrapper::Output *output) const;
 
   bool initRWS();
-  bool initRWS(const boost::shared_ptr<RWSSimpleStateMachineInterface>& interface);
+  bool initRWS(const boost::shared_ptr<RWSStateMachineInterface>& interface);
 
   bool initEGM();
 
@@ -236,7 +182,7 @@ protected:
 
   bool sendEGMParams();
 
-  void setEGMParams(EGMData& egm_data);
+  void setEGMParams(RWSStateMachineInterface::EGMSettings& egm_settings);
 
   void configureEGM(boost::shared_ptr<EGMControllerInterface> egm_interface);
 
@@ -248,7 +194,7 @@ protected:
   // RWS interface which uses TCP communication for starting the EGM joint mode
   // on YuMi
   // boost::shared_ptr<RWSInterfaceYuMi> rws_interface_;
-  boost::shared_ptr<RWSSimpleStateMachineInterface> rws_interface_;
+  boost::shared_ptr<RWSStateMachineInterface> rws_interface_;
 
   // RWS connection parameters
   std::string rws_ip_;
@@ -274,7 +220,7 @@ protected:
   boost::asio::io_service io_service_;
   boost::thread_group io_service_threads_;
 
-  EGMData egm_params_;
+  RWSStateMachineInterface::EGMSettings egm_settings_;
 
   double max_joint_velocity_;
 

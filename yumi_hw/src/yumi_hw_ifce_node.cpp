@@ -57,7 +57,7 @@ int main(int argc, char **argv) {
             ros::init_options::NoSigintHandler);
 
   /* ROS spinner */
-  ros::AsyncSpinner spinner(1); // should be 4 eventually?s
+  ros::AsyncSpinner spinner(4); // should be 4 eventually?s
   spinner.start();
 
   /* Custom operating system signal handlers */
@@ -77,7 +77,7 @@ int main(int argc, char **argv) {
   yumi_nh.param(
       "ip", ip,
       std::string(
-          "192.168.125.12")); // simulation. For live robot: 192.168.125.1
+          "192.168.125.1")); // simulation. For live robot: 192.168.125.1
   yumi_nh.param("name", name, std::string("yumi"));
   yumi_nh.param("use_egm", use_egm, true);
 
@@ -85,24 +85,26 @@ int main(int argc, char **argv) {
    * parsing what's useful to itself */
   std::string urdf_string = getURDF(yumi_nh, "/robot_description");
 
-  std::unique_ptr<YumiHW> yumi_robot;
-
-  if (!use_egm) {
-    ROS_INFO("Use RWS");
-    // yumi_robot = new YumiHWRWS();
-    yumi_robot.reset(new YumiHWRWS());
-    yumi_robot->setup(ip);
-    ROS_INFO("Setting up connection to YuMi over RWS");
-  } else {
+  std::shared_ptr<YumiHW> yumi_robot;
+  // TODO make rws interface work standalone as well
+  // if (!use_egm) {
+  //   ROS_INFO("Use RWS");
+  //   // yumi_robot = new YumiHWRWS();
+  //   yumi_robot = std::make_shared<YumiHWRWS>();
+  //   std::shared_ptr<YumiHWRWS> yumi_robot_rws = std::dynamic_pointer_cast<YumiHWRWS>(yumi_robot);
+  //   yumi_robot_rws->setup(ip);
+  //   ROS_INFO("Setting up connection to YuMi over RWS");
+  // } else {
     ROS_INFO("Use EGM");
-    yumi_robot.reset(new YumiHWEGM());
+    yumi_robot = std::make_shared<YumiHWEGM>();
+    std::shared_ptr<YumiHWEGM> yumi_robot_egm = std::dynamic_pointer_cast<YumiHWEGM>(yumi_robot);
     std::stringstream port_ss;
     port_ss << port;
-    const int port_l = 6556;
-    const int port_r = 6557; // TODO: make parameter and get from config file
-    yumi_robot->setup(ip, port_ss.str(), port_l);
+    const int port_l = 6511;
+    const int port_r = 6512; // TODO: make parameter and get from config file
+    yumi_robot_egm->setup(ip, port_ss.str(), port_l, port_r);
     ROS_INFO("Setting up connection to YuMi over EGM");
-  }
+  // }
 
   yumi_robot->create(name, urdf_string);
 

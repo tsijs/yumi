@@ -1,16 +1,19 @@
 # Configuration parameters for EGM/RWS connections to the YuMi Robot
-
+ip:192.168.125.1
 rws:
   # ip & port specified in the launch file
-  # ip: 192.168.125.1
-  # port: 80
+  ip: 192.168.125.1
+  port: 80
   delay_time: 1.0
   max_signal_retries: 5
 
 # EGM parameters, documentation taken from the RAPID module TRobEGM.sys
+# TODO add the other parameters that are in egm settings as well here. 
 egm:
+  ip: 192.168.125.1
+  port: 80
   
-  comm_timeout: 1.0
+  comm_timeout: 30.0
 
   # tool and work object names,
   # not important for YuMi since EGM control is at the joint level

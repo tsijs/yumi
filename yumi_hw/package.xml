@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>yumi_hw_interface</name>
+  <name>yumi_hw</name>
   <version>0.0.4</version>
   <description>Hardware interface for ABB IRB14000 (YuMi)</description>
 
