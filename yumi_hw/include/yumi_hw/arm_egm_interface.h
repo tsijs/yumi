@@ -35,13 +35,13 @@
 
 #include <yumi_hw/yumi_hw.h>
 
-#include <boost/shared_ptr.hpp>
 #include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>
 
 #include <abb_libegm/egm_controller_interface.h>
 #include <abb_librws/rws_interface.h>
 #include <abb_librws/rws_state_machine_interface.h>
+
 #include <ros/ros.h>
 
 #ifndef MAX_NUMBER_OF_EGM_CONNECTIONS
@@ -51,15 +51,38 @@
 using namespace abb::egm;
 using namespace abb::rws;
 
+// wrapper for RWS interface used for EGM. 
+class YumiRWSforEGMWrapper: public RWSStateMachineInterface {
+  public:
+    // TODO 
+    // - make rws_max_tries a parameter?
+    // - have more constructor mappings with username and passwords as well?
+    // - make mutex locks less conservative? But maybe not..
+    YumiRWSforEGMWrapper(const std::string ip_address, const unsigned short port);
+    
+    ~YumiRWSforEGMWrapper() {}
 
-// Wrapper class for setting up EGM and RWS connections to the Yumi robot
+    bool startEGM();
+    bool stopEGM();
+    void getParams();
+    bool setSettings(const std::string task, EGMSettings settings);
+    bool getSettings(const std::string task, EGMSettings* p_settings);
+    double getDelayTime() {return rws_delay_time_;}
+
+  private:
+    int max_signal_retries_;
+    double rws_delay_time_;
+    boost::mutex rws_mutex_;
+};
+
+// Wrapper class for setting up EGM connection to the Yumi robot
 // with their corresponding IO service threads
-// It assumes velocity control mode
 class YumiEGMInterface {
 
 public:
-  YumiEGMInterface(const double &exponential_smoothing_alpha = 0.04);
-
+  YumiEGMInterface(const std::string task, const unsigned int egm_port, const std::string rws_ip=std::string("192.168.125.1"),
+                                   const unsigned int rws_port=80); 
+  YumiEGMInterface(std::string task, const unsigned int egm_port, const std::shared_ptr<YumiRWSforEGMWrapper>& rws_interface);
   ~YumiEGMInterface();
   // TODO: update these comments. 
   /** \brief Gets parameters for EGM & RWS connections from the ROS parameter
@@ -93,11 +116,13 @@ public:
    */
   void getParams();
 
-  /** \brief Initializes EGM + RWS connection to the robot
+  // part of the constructor that is the same for all constructors
+  void init();
+
+  /** \brief Initializes EGM connection to the robot
    *
    */
-  bool init(const std::string &ip, const unsigned short &port_rws,
-            const int &port_egm);
+  bool initEGM();
 
   bool stop();
 
@@ -119,7 +144,7 @@ public:
    * elements 0-6
    * correspond to the left arm and elements 7-13 correspond to the right arm.
    */
-  void setJointVelTargets(float (&joint_vel_targets)[N_JOINTS_ARM]);
+  void setJointTargets(const float (&joint_vel_targets)[N_JOINTS_ARM], const YumiHW::ControlStrategy mode);
 
 protected:
   /** \brief Copies EGM protobuf joint states (pos, vel or acc) collected from
@@ -147,8 +172,8 @@ protected:
    *
    * \param joint_acc
    */
-  void copyEGMInputToArray(::wrapper::Input *input, float *joint_pos,
-                           float *joint_vel) const;
+  void copyEGMInputToArray(::wrapper::Input *const input, float *const joint_pos,
+                           float *const joint_vel) const;
 
   /** \brief Copies protobuf joint states (pos, vel or acc) collected from
    * the EGM interface to an array.
@@ -162,18 +187,19 @@ protected:
    * same order
    * as the robot's URDF, starting from the shoulder until the wrist.
    */
-  void copyArrayToEGMOutput(float *joint_array,
+  void copyVelocityArrayToEGMOutput(const float *const joint_array,
                             ::wrapper::Output *output) const;
+  
+  void copyPositionArrayToEGMOutput(const float *const  joint_array,
+                            ::wrapper::Output *const output) const;
 
   bool initRWS();
-  bool initRWS(const boost::shared_ptr<RWSStateMachineInterface>& interface);
 
-  bool initEGM();
+  bool initOutput(std::shared_ptr<abb::egm::wrapper::Output> &output,
+                  const std::shared_ptr<abb::egm::wrapper::Input> &input);
 
-  bool initOutput(boost::shared_ptr<abb::egm::wrapper::Output> &output,
-                  boost::shared_ptr<abb::egm::wrapper::Input> &input);
-
-  bool initEGMArm(boost::shared_ptr<EGMControllerInterface> &interface);
+  bool initEGMArm(const 
+    std::shared_ptr<EGMControllerInterface>&interface);
 
 /** \brief Sends EGM parameters collected from the ROS parameter server to the
  * robot controller through RWS (TCP connection), such as
@@ -182,9 +208,10 @@ protected:
 
   bool sendEGMParams();
 
-  void setEGMParams(RWSStateMachineInterface::EGMSettings& egm_settings);
+  void getEGMParams(YumiRWSforEGMWrapper::EGMSettings& egm_settings);
 
-  void configureEGM(boost::shared_ptr<EGMControllerInterface> egm_interface);
+  void configureEGM(const 
+    std::shared_ptr<EGMControllerInterface>& egm_interface);
 
   bool startEGM();
 
@@ -193,26 +220,22 @@ protected:
   /* RWS */
   // RWS interface which uses TCP communication for starting the EGM joint mode
   // on YuMi
-  // boost::shared_ptr<RWSInterfaceYuMi> rws_interface_;
-  boost::shared_ptr<RWSStateMachineInterface> rws_interface_;
+  std::shared_ptr<YumiRWSforEGMWrapper> rws_interface_;
 
   // RWS connection parameters
-  std::string rws_ip_;
-  unsigned short rws_port_;
   double rws_delay_time_;
-  int rws_max_signal_retries_;
-  bool rws_connection_ready_;
-
+  
+  const std::string task_;
   /* EGM */
   // EGM interface which uses UDP communication for realtime robot control @ 250
   // Hz
   unsigned short egm_port_;
-  boost::shared_ptr<EGMControllerInterface> egm_interface_;
+  std::shared_ptr<EGMControllerInterface> egm_interface_;
 
   // feedback and status read from the egm interface
-  boost::shared_ptr<abb::egm::wrapper::Input> input_;
-  boost::shared_ptr<abb::egm::wrapper::Status> status_;
-  boost::shared_ptr<abb::egm::wrapper::Output> output_;
+  std::shared_ptr<abb::egm::wrapper::Input> input_;
+  std::shared_ptr<abb::egm::wrapper::Status> status_;
+  std::shared_ptr<abb::egm::wrapper::Output> output_;
 
   // joint velocity commands sent to the egm interface
 
@@ -220,11 +243,13 @@ protected:
   boost::asio::io_service io_service_;
   boost::thread_group io_service_threads_;
 
-  RWSStateMachineInterface::EGMSettings egm_settings_;
+  YumiRWSforEGMWrapper::EGMSettings egm_settings_;
 
   double max_joint_velocity_;
 
   bool has_params_;
 };
+
+
 
 #endif // YUMI_HW_EGM_H

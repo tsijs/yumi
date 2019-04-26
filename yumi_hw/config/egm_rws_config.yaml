@@ -1,5 +1,5 @@
 # Configuration parameters for EGM/RWS connections to the YuMi Robot
-ip:192.168.125.1
+ip: 192.168.125.1
 rws:
   # ip & port specified in the launch file
   ip: 192.168.125.1
@@ -12,13 +12,12 @@ rws:
 egm:
   ip: 192.168.125.1
   port: 80
-  
   comm_timeout: 30.0
 
   # tool and work object names,
   # not important for YuMi since EGM control is at the joint level
-  tool_name: tool0
-  wobj_name: wobj0
+  # tool_name: tool0
+  # wobj_name: wobj0
 
   # Condition value [deg or mm] for when the EGM correction is considered
   # to be finished. E.g. for joint mode, then the condition is fulfilled when

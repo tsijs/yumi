@@ -1,8 +1,9 @@
 #include <yumi_hw/yumi_hw.h>
 
-YumiHW::YumiHW(const double &exponential_smoothing_alpha)
-    : n_joints_(N_ARMS * N_JOINTS_ARM),
-      exponential_smoothing_alpha_(exponential_smoothing_alpha) {}
+YumiHW::YumiHW() // (const double &exponential_smoothing_alpha
+    : n_joints_(N_ARMS * N_JOINTS_ARM)
+      //, exponential_smoothing_alpha_(exponential_smoothing_alpha) 
+      {}
 
 void YumiHW::create(std::string name, std::string urdf_string) {
   ROS_INFO_STREAM("Creating a Yumi HW interface for: "

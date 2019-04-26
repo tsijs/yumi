@@ -6,7 +6,7 @@
 #include <time.h>
 
 /* ROS headers */
-#include <boost/interprocess/smart_ptr/unique_ptr.hpp>
+// #include <boost/interprocess/smart_ptr/unique_ptr.hpp>
 #include <controller_manager/controller_manager.h>
 #include <ros/ros.h>
 #include <std_msgs/Float64.h>
@@ -87,14 +87,14 @@ int main(int argc, char **argv) {
 
   std::shared_ptr<YumiHW> yumi_robot;
   // TODO make rws interface work standalone as well
-  // if (!use_egm) {
-  //   ROS_INFO("Use RWS");
-  //   // yumi_robot = new YumiHWRWS();
-  //   yumi_robot = std::make_shared<YumiHWRWS>();
-  //   std::shared_ptr<YumiHWRWS> yumi_robot_rws = std::dynamic_pointer_cast<YumiHWRWS>(yumi_robot);
-  //   yumi_robot_rws->setup(ip);
-  //   ROS_INFO("Setting up connection to YuMi over RWS");
-  // } else {
+  if (!use_egm) {
+    ROS_INFO("Use RWS");
+    // yumi_robot = new YumiHWRWS();
+    yumi_robot = std::make_shared<YumiHWRWS>();
+    std::shared_ptr<YumiHWRWS> yumi_robot_rws = std::dynamic_pointer_cast<YumiHWRWS>(yumi_robot);
+    yumi_robot_rws->setup(ip);
+    ROS_INFO("Setting up connection to YuMi over RWS");
+  } else {
     ROS_INFO("Use EGM");
     yumi_robot = std::make_shared<YumiHWEGM>();
     std::shared_ptr<YumiHWEGM> yumi_robot_egm = std::dynamic_pointer_cast<YumiHWEGM>(yumi_robot);
@@ -104,7 +104,7 @@ int main(int argc, char **argv) {
     const int port_r = 6512; // TODO: make parameter and get from config file
     yumi_robot_egm->setup(ip, port_ss.str(), port_l, port_r);
     ROS_INFO("Setting up connection to YuMi over EGM");
-  // }
+  }
 
   yumi_robot->create(name, urdf_string);
 

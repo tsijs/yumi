@@ -11,7 +11,7 @@ bool YumiJointStateHandler::init(
 }
 
 bool YumiJointStateHandler::getJointStates(float (&jnts)[N_JOINTS_ARM]) {
-  boost::mutex::scoped_lock lock(data_buffer_mutex_);
+  std::scoped_lock lock(data_buffer_mutex_);
   while (!joint_state_received_) {
     c_joint_state_received_.wait(lock);
   }
@@ -21,7 +21,7 @@ bool YumiJointStateHandler::getJointStates(float (&jnts)[N_JOINTS_ARM]) {
 
 bool YumiJointStateHandler::setJointCommands(float (&jnts)[N_JOINTS_ARM],
                                              int mode) {
-  boost::mutex::scoped_lock lock(data_buffer_mutex_);
+  std::scoped_lock lock(data_buffer_mutex_);
   memcpy(&joint_command_, &jnts, sizeof(jnts));
   joint_commands_set_ = true;
   mode_ = mode;
@@ -30,7 +30,7 @@ bool YumiJointStateHandler::setJointCommands(float (&jnts)[N_JOINTS_ARM],
 
 bool YumiJointStateHandler::internalCB(
     industrial::simple_message::SimpleMessage &in) {
-  boost::mutex::scoped_lock lock(data_buffer_mutex_);
+  std::scoped_lock lock(data_buffer_mutex_);
 
   // ROS_INFO("Received a message");
   industrial::joint_message::JointMessage joint_msg;

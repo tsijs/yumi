@@ -2,7 +2,7 @@
 #include <yumi_hw/arm_rws_interface.h>
 
 YumiHWRWS::YumiHWRWS(const double &exponential_smoothing_alpha)
-    : YumiHW(exponential_smoothing_alpha), is_initialized_(false),
+    : is_initialized_(false),
       is_setup_(false), first_run_in_position_mode_(true) {}
 
 YumiHWRWS::~YumiHWRWS() { rws_interface_.stopThreads(); }

@@ -8,7 +8,7 @@
 
 class YumiHWEGM : public YumiHW {
 public:
-  YumiHWEGM(const double &exponential_smoothing_alpha = 0.04);
+  YumiHWEGM(); 
 
   ~YumiHWEGM();
 
@@ -27,8 +27,9 @@ public:
 private:
   bool is_initialized_;
 
-  YumiEGMInterface yumi_egm_interface_r_;
-  YumiEGMInterface yumi_egm_interface_l_;
+  std::unique_ptr<YumiEGMInterface> yumi_egm_interface_r_;
+  std::unique_ptr<YumiEGMInterface> yumi_egm_interface_l_;
+  std::shared_ptr<YumiRWSforEGMWrapper> rws_interface_;
 
   boost::mutex data_buffer_mutex_;
 
@@ -39,10 +40,8 @@ private:
 
   // command buffers
   // TODO: see if other containers that are dynamically allocated could be more appropriate here?
-  float joint_vel_targets_r_[N_JOINTS_ARM];
-  float joint_vel_targets_l_[N_JOINTS_ARM];
-  float joint_pos_targets_r_[N_JOINTS_ARM];// new
-  float joint_pos_targets_l_[N_JOINTS_ARM];// new
+  float joint_targets_r_[N_JOINTS_ARM];
+  float joint_targets_l_[N_JOINTS_ARM];
 
   // Maybe not have this here. I don't remember why I added this in the first place
   float joint_position_prev_r_[N_JOINTS_ARM];

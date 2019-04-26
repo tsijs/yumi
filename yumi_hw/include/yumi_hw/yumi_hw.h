@@ -35,7 +35,7 @@
 
 class YumiHW : public hardware_interface::RobotHW {
 public:
-  YumiHW(const double &exponential_smoothing_alpha = 0.04);
+  YumiHW();//const double &exponential_smoothing_alpha = 0.04
 
   virtual ~YumiHW() {}
 
@@ -84,7 +84,7 @@ public:
   urdf::Model urdf_model_;
   std::vector<std::string> joint_names_;
   // TODO checkout where this is used
-  double exponential_smoothing_alpha_;
+  // double exponential_smoothing_alpha_;
 
   /* Transmissions in this plugin's scope */
   // Only for grippers?

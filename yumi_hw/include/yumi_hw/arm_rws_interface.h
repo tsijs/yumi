@@ -1,4 +1,5 @@
 #pragma once
+#include <yumi_hw/yumi_hw.h>
 
 #include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>

@@ -208,10 +208,10 @@ private:
 
   // Robot simulator interface
   std::string robot_hw_sim_type_str_;
-  boost::shared_ptr<YumiHWGazebo> robot_hw_sim_;
+  std::shared_ptr<YumiHWGazebo> robot_hw_sim_;
 
   // Controller manager
-  boost::shared_ptr<controller_manager::ControllerManager> controller_manager_;
+  std::shared_ptr<controller_manager::ControllerManager> controller_manager_;
 
   // Timing
   ros::Duration control_period_;
