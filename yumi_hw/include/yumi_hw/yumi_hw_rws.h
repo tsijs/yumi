@@ -46,7 +46,8 @@ private:
   bool is_initialized_;
   bool is_setup_;
   bool first_run_in_position_mode_;
-
+  double exponential_smoothing_alpha_;
+  
   boost::mutex data_buffer_mutex_;
 
   /// command buffers

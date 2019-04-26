@@ -3,7 +3,7 @@
 
 YumiHWRWS::YumiHWRWS(const double &exponential_smoothing_alpha)
     : is_initialized_(false),
-      is_setup_(false), first_run_in_position_mode_(true) {}
+      is_setup_(false), first_run_in_position_mode_(true), exponential_smoothing_alpha_(exponential_smoothing_alpha) {}
 
 YumiHWRWS::~YumiHWRWS() { rws_interface_.stopThreads(); }
 
