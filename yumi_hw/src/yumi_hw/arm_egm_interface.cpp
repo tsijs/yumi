@@ -239,7 +239,7 @@ void YumiEGMInterface::copyVelocityArrayToEGMOutput( const float *const joint_ar
           ->mutable_velocity()
           ->values_size() > 0) // prevents seg fault
   {
-    ROS_INFO("TESTING IF THIS GETS REACHED 2");
+    // ROS_INFO("TESTING IF THIS GETS REACHED 2");
     output->mutable_external()
         ->mutable_joints()
         ->mutable_velocity()
@@ -292,24 +292,24 @@ bool YumiEGMInterface::initRWS() {
   // rws_interface_.reset(new RWSInterfaceYuMi(rws_ip_, rws_port_));
   
   ros::Duration(rws_interface_->getDelayTime()).sleep();
-  std::cout << "  RWS interface created" << std::endl;
 
   // Check that RAPID is running on the robot and that robot is in AUTO mode
   // tribool problem
   
   if (!rws_interface_->isRAPIDRunning().isTrue()) {
-    ROS_ERROR_STREAM(ros::this_node::getName() << ": robot unavailable, make"
-  "sure that the RAPID program is running on the flexpendant.");
+    ROS_ERROR_STREAM(ros::this_node::getName() << ": robot unavailable, "
+  "RAPIDRunning==false. Make sure that the RAPID program is running on the flexpendant.");
     return false;
   }
   std::cout << "  RAPID running" << std::endl;
   ros::Duration(rws_interface_->getDelayTime()).sleep();
 
   if (!rws_interface_->isAutoMode().isTrue()) {
-    ROS_ERROR_STREAM(ros::this_node::getName() << ": robot unavailable, make"
-  "sure to set the robot to AUTO mode on the flexpendant.");
+    ROS_ERROR_STREAM(ros::this_node::getName() << ": robot unavailable, "
+  "AUTOMode==false. Make sure to set the robot to AUTO mode on the flexpendant.");
     return false;
   }
+
   std::cout << "  Auto mode" << std::endl;
   ros::Duration(rws_interface_->getDelayTime()).sleep();
 

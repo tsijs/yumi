@@ -68,7 +68,7 @@ LIST(APPEND SOURCEFILES
   src/yumi_hw/yumi_hw.cpp
   src/yumi_hw/yumi_hw_rws.cpp
   src/yumi_hw/yumi_hw_egm.cpp
-  src/yumi_hw/yumi_hw_gazebo.cpp
+  #src/yumi_hw/yumi_hw_gazebo.cpp
   src/yumi_hw/arm_egm_interface.cpp
   src/yumi_hw/arm_rws_interface.cpp
   
