@@ -123,11 +123,11 @@ void YumiHW::registerInterfaces(
     const std::string &hardware_interface = joint_interfaces.front();
 
     // Debug //FIXME
-    std::cout << "\x1B[37m"
+    ROS_INFO_STREAM( "\x1B[37m"
               << "yumi_hw: "
               << "Loading joint '" << joint_names_[j] << "' of type '"
               << hardware_interface << "'"
-              << "\x1B[0m" << std::endl;
+              << "\x1B[0m" << std::endl);
 
     // Create joint state interface for all joints
     state_interface_.registerHandle(hardware_interface::JointStateHandle(

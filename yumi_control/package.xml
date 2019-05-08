@@ -17,8 +17,11 @@
   <run_depend>gazebo_ros</run_depend>
   <run_depend>gazebo_ros_control</run_depend>
   <run_depend>robot_state_publisher</run_depend>
+  <run_depend>joint_state_controller</run_depend>
+  <run_depend>position_controllers</run_depend>
+  <run_depend>velocity_controllers</run_depend>
+  <run_depend>joint_trajectory_controller</run_depend>
   <run_depend>ros_control</run_depend>
-  <run_depend>ros_controllers</run_depend>
   <run_depend>gazebo_mimic</run_depend> <!-- needed for the gazebo mimic plugin -->
 
   <export>
