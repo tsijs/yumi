@@ -104,11 +104,11 @@ void YumiHWEGM::write(ros::Time time, ros::Duration period) {
     break;
   }
   
-  ROS_DEBUG("targets: %f, %f, %f, %f, %f, %f,"
+  ROS_DEBUG("targets Left: %f, %f, %f, %f, %f, %f,"
   "%f",joint_targets_l_[0],joint_targets_l_[1],joint_targets_l_[2],joint_targets_l_[3],
   joint_targets_l_[4],joint_targets_l_[5],joint_targets_l_[6]);
 
-  ROS_DEBUG("targets: %f, %f, %f, %f, %f, %f,"
+  ROS_DEBUG("targets Right: %f, %f, %f, %f, %f, %f,"
   "%f",joint_targets_r_[0],joint_targets_r_[1],joint_targets_r_[2],joint_targets_r_[3],
   joint_targets_r_[4],joint_targets_r_[5],joint_targets_r_[6]);
 

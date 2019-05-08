@@ -53,17 +53,16 @@ std::string getURDF(ros::NodeHandle &model_nh_, std::string param_name) {
 
 int main(int argc, char **argv) {
   /* Init ROS node */
-  ros::init(argc, argv, "yumi_hw_interface",
-            ros::init_options::NoSigintHandler);
+  ros::init(argc, argv, "yumi_hw");  //, ros::init_options::NoSigintHandler
 
   /* ROS spinner */
-  ros::AsyncSpinner spinner(4); // should be 4 eventually?s
+  ros::AsyncSpinner spinner(4); // should this be 4 actually?
   spinner.start();
 
   /* Custom operating system signal handlers */
   // signal(SIGTERM, quitRequested);
-  signal(SIGINT, quitRequested);
-  signal(SIGHUP, quitRequested);
+  // signal(SIGINT, quitRequested);
+  // signal(SIGHUP, quitRequested);
 
   /* Create node handler */
   ros::NodeHandle yumi_nh("~");
@@ -73,13 +72,20 @@ int main(int argc, char **argv) {
   std::string ip;
   std::string name;
   bool use_egm;
-  yumi_nh.param("port", port, 80);
+  int port_l_egm;
+  int port_r_egm; // TODO: make parameter and get from config file
+  yumi_nh.param("rws/port", port, 80);
+  ROS_INFO_STREAM("port: "<< port);
   yumi_nh.param(
-      "ip", ip,
+      "rws/ip", ip,
       std::string(
           "192.168.125.1")); // simulation. For live robot: 192.168.125.1
+  ROS_INFO_STREAM("ip " << ip);
   yumi_nh.param("name", name, std::string("yumi"));
-  yumi_nh.param("use_egm", use_egm, true);
+  yumi_nh.param("egm/use_egm", use_egm, true);
+  yumi_nh.param("egm/port_l", port_l_egm, 6511);
+  yumi_nh.param("egm/port_r", port_r_egm, 6512);
+
 
   /* Get the general robot description, the YumiHW class will take care of
    * parsing what's useful to itself */
@@ -100,9 +106,8 @@ int main(int argc, char **argv) {
     std::shared_ptr<YumiHWEGM> yumi_robot_egm = std::dynamic_pointer_cast<YumiHWEGM>(yumi_robot);
     std::stringstream port_ss;
     port_ss << port;
-    const int port_l = 6511;
-    const int port_r = 6512; // TODO: make parameter and get from config file
-    yumi_robot_egm->setup(ip, port_ss.str(), port_l, port_r);
+    
+    yumi_robot_egm->setup(ip, port_ss.str(), port_l_egm, port_r_egm);
     ROS_INFO("Setting up connection to YuMi over EGM");
   }
 

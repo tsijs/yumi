@@ -19,8 +19,8 @@
     <param name="robot_description" command="$(find xacro)/xacro.py '$(find yumi_description)/urdf/yumi.urdf.xacro' arms_interface:=$(arg arms_hardware_interface) grippers_interface:=$(arg grippers_hardware_interface) yumi_setup:=$(arg yumi_setup)" />
 
     <!-- Network parameters -->
-    <arg name="ip" default="192.168.125.1"/> <!--when talking to the real robot controller -->
-    <arg name="port" default="80"/>
+    <arg name="ip" default="192.168.122.122"/> <!--when talking to the real robot controller this is 192.168.125.1-->
+    <arg name="port" default="8080"/> <!--real robot: 80-->
 
     <!-- EGM parameters -->
     <arg name="egm" default="true"/>
@@ -36,13 +36,15 @@
     </node>
      
     <!-- The grippers hardware interface -->
-    <node required="true" name="yumi_gripper" pkg="yumi_hw" type="yumi_gripper_node" respawn="false" ns="/yumi" output="screen"> 
+    <!--    <node required="true" name="yumi_gripper" pkg="yumi_hw" type="yumi_gripper_node" respawn="false" ns="/yumi" output="screen"> 
         <param name="ip" value="$(arg ip)"/>
     </node>
+-->
 
     <!-- Joint state and robot state publisher calls -->
     <node name="yumi_joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
-        <rosparam param="source_list">["/yumi/joint_states", "/yumi/gripper_states"]</rosparam>
+        <rosparam param="source_list">["yumi/joint_states"]</rosparam>
+        <!--<rosparam param="source_list">["/yumi/joint_states", "/yumi/gripper_states"]</rosparam>-->
     </node>
     <node name="yumi_robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
 

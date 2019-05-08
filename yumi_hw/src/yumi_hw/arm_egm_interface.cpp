@@ -186,12 +186,12 @@ void YumiEGMInterface::copyEGMInputToArray( ::wrapper::Input *const input,
                        ->mutable_robot()
                        ->mutable_joints()
                        ->mutable_velocity()
-                       ->values(i);
+                       ->values(i) / 180.0 * M_PI;
     joint_pos[i] = (float)input->mutable_feedback()
                        ->mutable_robot()
                        ->mutable_joints()
                        ->mutable_position()
-                       ->values(i);
+                       ->values(i) / 180.0 * M_PI;
   }
 
   // FIXME: this external stuff should not be necessary anymore here with Seven
@@ -200,12 +200,12 @@ void YumiEGMInterface::copyEGMInputToArray( ::wrapper::Input *const input,
                                     ->mutable_external()
                                     ->mutable_joints()
                                     ->mutable_velocity()
-                                    ->values(0);
+                                    ->values(0) / 180.0 * M_PI;
   joint_pos[N_JOINTS_ARM - 1] = (float)input->mutable_feedback()
                                     ->mutable_external()
                                     ->mutable_joints()
                                     ->mutable_position()
-                                    ->values(0);
+                                    ->values(0) / 180.0 * M_PI;
 }
 
 void YumiEGMInterface::copyVelocityArrayToEGMOutput( const float *const joint_array,
@@ -356,8 +356,8 @@ bool YumiEGMInterface::initEGM() {
   bool wait = true;
   ROS_INFO("Wait for an EGM communication session to start...");
   while (ros::ok() && wait) {
-    ROS_INFO("The interface is: %s.\n",
-             egm_interface_->isConnected() ? "connected" : "not connected");
+    ROS_INFO_STREAM("The interface " << task_ << " is " <<
+             (egm_interface_->isConnected() ? "connected" : "not connected"));
     if (egm_interface_->isConnected()) {
       if (egm_interface_->getStatus().rapid_execution_state() ==
           abb::egm::wrapper::Status_RAPIDExecutionState_RAPID_UNDEFINED) {
