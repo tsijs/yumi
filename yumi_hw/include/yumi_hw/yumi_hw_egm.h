@@ -4,7 +4,7 @@
 
 #include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>
-
+#include <ros/ros.h>
 
 class YumiHWEGM : public YumiHW {
 public:
@@ -39,7 +39,6 @@ private:
   unsigned short port_egm_l_;
 
   // command buffers
-  // TODO: see if other containers that are dynamically allocated could be more appropriate here?
   float joint_targets_r_[N_JOINTS_ARM];
   float joint_targets_l_[N_JOINTS_ARM];
 

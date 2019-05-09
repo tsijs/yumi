@@ -54,20 +54,34 @@ void YumiHWEGM::read(ros::Time time, ros::Duration period) {
     joint_velocity_prev_l_[j] = joint_vel_l_[j]; 
   }
 
-  yumi_egm_interface_r_->getCurrentJointStates(joint_pos_r_, joint_vel_r_);
-  yumi_egm_interface_l_->getCurrentJointStates(joint_pos_l_, joint_vel_l_);
+  yumi_egm_interface_r_->getCurrentJointStates( joint_pos_r_,  joint_vel_r_);
+  yumi_egm_interface_l_->getCurrentJointStates( joint_pos_l_,  joint_vel_l_);
+  
+  std::copy(joint_pos_l_, joint_pos_l_ + N_JOINTS_ARM, joint_position_.begin());
+  std::copy(joint_pos_r_, joint_pos_r_ + N_JOINTS_ARM, joint_position_.begin() + N_JOINTS_ARM);
+  std::copy(joint_vel_l_, joint_vel_l_ + N_JOINTS_ARM, joint_velocity_.begin());
+  std::copy(joint_vel_r_, joint_vel_r_ + N_JOINTS_ARM, joint_velocity_.begin() + N_JOINTS_ARM);
 
   data_buffer_mutex_.unlock();
 
-  ROS_DEBUG("The received positions right are: %f, %f, %f, %f, %f, %f, %f ", \
-  joint_pos_r_[0], joint_pos_r_[1], joint_pos_r_[2], joint_pos_r_[3], joint_pos_r_[4], joint_pos_r_[5], joint_pos_r_[6]);
-  ROS_DEBUG("The received velocities right are: %f, %f, %f, %f, %f, %f, %f ", \
-  joint_vel_r_[0], joint_vel_r_[1], joint_vel_r_[2], joint_vel_r_[3], joint_vel_r_[4], joint_vel_r_[5], joint_vel_r_[6] );
+  
   ROS_DEBUG("The received positions left are: %f, %f, %f, %f, %f, %f, %f ", \
   joint_pos_l_[0], joint_pos_l_[1], joint_pos_l_[2], joint_pos_l_[3], joint_pos_l_[4], joint_pos_l_[5], joint_pos_l_[6]);
+  ROS_DEBUG("The ros_control pos left are: %f, %f, %f, %f, %f, %f, %f ", \
+  joint_position_[0], joint_position_[1], joint_position_[2], joint_position_[3], joint_position_[4], joint_position_[5], joint_position_[6] );
   ROS_DEBUG("The received velocities left are: %f, %f, %f, %f, %f, %f, %f ", \
   joint_vel_l_[0], joint_vel_l_[1], joint_vel_l_[2], joint_vel_l_[3], joint_vel_l_[4], joint_vel_l_[5], joint_vel_l_[6] );
+  ROS_DEBUG("The ros_control velocities left are: %f, %f, %f, %f, %f, %f, %f ", \
+  joint_velocity_[0], joint_velocity_[1], joint_velocity_[2], joint_velocity_[3], joint_velocity_[4], joint_velocity_[5], joint_velocity_[6] );
 
+  ROS_DEBUG("The received positions right are: %f, %f, %f, %f, %f, %f, %f ", \
+  joint_pos_r_[0], joint_pos_r_[1], joint_pos_r_[2], joint_pos_r_[3], joint_pos_r_[4], joint_pos_r_[5], joint_pos_r_[6]);
+  ROS_DEBUG("The ros_control pos right are: %f, %f, %f, %f, %f, %f, %f ", \
+  joint_position_[0 + N_JOINTS_ARM], joint_position_[1 + N_JOINTS_ARM], joint_position_[2 + N_JOINTS_ARM], joint_position_[3 + N_JOINTS_ARM], joint_position_[4 + N_JOINTS_ARM], joint_position_[5 + N_JOINTS_ARM], joint_position_[6 + N_JOINTS_ARM] );
+  ROS_DEBUG("The received velocities right are: %f, %f, %f, %f, %f, %f, %f ", \
+  joint_vel_r_[0], joint_vel_r_[1], joint_vel_r_[2], joint_vel_r_[3], joint_vel_r_[4], joint_vel_r_[5], joint_vel_r_[6] );
+  ROS_DEBUG("The ros_control velocities right are: %f, %f, %f, %f, %f, %f, %f ", \
+  joint_velocity_[0 + N_JOINTS_ARM], joint_velocity_[1 + N_JOINTS_ARM], joint_velocity_[2 + N_JOINTS_ARM], joint_velocity_[3 + N_JOINTS_ARM], joint_velocity_[4 + N_JOINTS_ARM], joint_velocity_[5 + N_JOINTS_ARM], joint_velocity_[6 + N_JOINTS_ARM] );
 }
 
 void YumiHWEGM::write(ros::Time time, ros::Duration period) {
@@ -81,6 +95,12 @@ void YumiHWEGM::write(ros::Time time, ros::Duration period) {
   data_buffer_mutex_.lock();
   switch (getControlStrategy()) {
   case JOINT_POSITION:
+  ROS_INFO("targets pos: %f, %f, %f, %f, %f, %f,"
+  "%f, %f, %f, %f, %f, %f, %f,"
+  "%f", joint_position_command_[0],joint_position_command_[1],joint_position_command_[2],joint_position_command_[3],
+  joint_position_command_[4],joint_position_command_[5],joint_position_command_[6], joint_position_command_[7],
+  joint_position_command_[8],joint_position_command_[9],joint_position_command_[10],
+  joint_position_command_[11],joint_position_command_[12],joint_position_command_[13]);
     for (int j = 0; j < n_joints_; j++) { 
       if (j < N_JOINTS_ARM)
         joint_targets_l_[j] = joint_position_command_[j]; 
@@ -92,11 +112,17 @@ void YumiHWEGM::write(ros::Time time, ros::Duration period) {
   case JOINT_VELOCITY:
     // TODO: when the params are used at init --> control strategy, this needs to
     // be changed as well
+    ROS_INFO("targets vel: %f, %f, %f, %f, %f, %f,"
+  "%f, %f, %f, %f, %f, %f, %f,"
+  "%f", joint_velocity_command_[0],joint_velocity_command_[1],joint_velocity_command_[2],joint_velocity_command_[3],
+  joint_velocity_command_[4],joint_velocity_command_[5],joint_velocity_command_[6], joint_velocity_command_[7],
+  joint_velocity_command_[8],joint_velocity_command_[9],joint_velocity_command_[10],
+  joint_velocity_command_[11],joint_velocity_command_[12],joint_velocity_command_[13]);
     for (int j = 0; j < n_joints_; j++) { 
       if (j < N_JOINTS_ARM)
         joint_targets_l_[j] = joint_velocity_command_[j]; 
       else
-        joint_targets_r_[j] = joint_velocity_command_[j]; 
+        joint_targets_r_[j - N_JOINTS_ARM] = joint_velocity_command_[j]; 
     }
     
     break;
@@ -104,11 +130,11 @@ void YumiHWEGM::write(ros::Time time, ros::Duration period) {
     break;
   }
   
-  ROS_DEBUG("targets Left: %f, %f, %f, %f, %f, %f,"
+  ROS_INFO("targets Left: %f, %f, %f, %f, %f, %f,"
   "%f",joint_targets_l_[0],joint_targets_l_[1],joint_targets_l_[2],joint_targets_l_[3],
   joint_targets_l_[4],joint_targets_l_[5],joint_targets_l_[6]);
 
-  ROS_DEBUG("targets Right: %f, %f, %f, %f, %f, %f,"
+  ROS_INFO("targets Right: %f, %f, %f, %f, %f, %f,"
   "%f",joint_targets_r_[0],joint_targets_r_[1],joint_targets_r_[2],joint_targets_r_[3],
   joint_targets_r_[4],joint_targets_r_[5],joint_targets_r_[6]);
 

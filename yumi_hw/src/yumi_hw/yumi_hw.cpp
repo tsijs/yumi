@@ -127,7 +127,7 @@ void YumiHW::registerInterfaces(
               << "yumi_hw: "
               << "Loading joint '" << joint_names_[j] << "' of type '"
               << hardware_interface << "'"
-              << "\x1B[0m" << std::endl);
+              << "\x1B[0m" );
 
     // Create joint state interface for all joints
     state_interface_.registerHandle(hardware_interface::JointStateHandle(
@@ -324,6 +324,11 @@ void YumiHW::doSwitch(
         ROS_INFO("Request to switch to "
                  "hardware_interface::VelocityJointInterface (JOINT_VELOCITY)");
         wantsVelocity = true;
+      } else if (it->claimed_resources[i].hardware_interface.compare(
+                     std::string(
+                         "hardware_interface::JointStateInterface")) == 0) {
+        ROS_INFO("Request to switch to "
+                 "hardware_interface::JointStateInterface. Weird, find out why, but ignore for now.");
       } else {
         ROS_INFO("Controller of type %s, requested interface of type %s. "
                  "Impossible, sorry.\n",
