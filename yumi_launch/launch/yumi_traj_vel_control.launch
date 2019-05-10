@@ -30,9 +30,9 @@
     <!-- The real hardware interface -->
     <node required="true" name="yumi_hw" pkg="yumi_hw" type="yumi_hw_ifce_node" respawn="false" ns="/yumi" output="screen"> 
         <param name="name" value="$(arg name)" />
-        <param name="ip" value="$(arg ip)"/>
-        <param name="port" value="$(arg port)"/>
-        <param name="use_egm" value="$(arg egm)"/>
+        <param name="rws/ip" value="$(arg ip)"/>
+        <param name="rws/port" value="$(arg port)"/>
+        <param name="egm/use_egm" value="$(arg egm)"/>
     </node>
      
     <!-- The grippers hardware interface -->
@@ -46,7 +46,7 @@
         <rosparam param="source_list">["/yumi/joint_states"]</rosparam>
         <!--<rosparam param="source_list">["/yumi/joint_states", "/yumi/gripper_states"]</rosparam>-->
     </node>
-    <node name="yumi_robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
-
+    <!--<node name="yumi_robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/> Done by yumi_moveit_config!
+-->
 </launch>
 

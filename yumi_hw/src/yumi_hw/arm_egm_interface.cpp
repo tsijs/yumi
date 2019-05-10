@@ -125,7 +125,7 @@ void YumiEGMInterface::getParams() {
   egm_settings_.activate.lp_filter = lp_filter;
 
   double max_speed_deviation;
-  nh.param("egm/max_speed_deviation", max_speed_deviation, 10.0);
+  nh.param("egm/max_speed_deviation", max_speed_deviation, 50.0);
   egm_settings_.activate.max_speed_deviation = max_speed_deviation;
 
   double condition_time;
@@ -162,7 +162,6 @@ void YumiEGMInterface::getCurrentJointStates(float (&joint_pos)[N_JOINTS_ARM],
 
 void YumiEGMInterface::setJointTargets(
     const float (&joint_targets)[N_JOINTS_ARM], const YumiHW::ControlStrategy mode) {
-
   switch (mode) {
     case YumiHW::ControlStrategy::JOINT_VELOCITY:
       copyVelocityArrayToEGMOutput(joint_targets, output_.get());
@@ -210,29 +209,26 @@ void YumiEGMInterface::copyEGMInputToArray( ::wrapper::Input *const input,
 
 void YumiEGMInterface::copyVelocityArrayToEGMOutput( const float *const joint_array,
                                              ::wrapper::Output *const output) const {
-  ROS_DEBUG("TESTING IF THIS GETS REACHED TOO, mutable vel output no. = %i",
-            output->mutable_robot()
-                ->mutable_joints()
-                ->mutable_velocity()
-                ->values_size());
   if (output->mutable_robot()
           ->mutable_joints()
           ->mutable_velocity()
-          ->values_size() > N_JOINTS_ARM - 1) // prevents seg fault
+          ->values_size() > N_JOINTS_ARM - 2) // prevents seg fault
   {
-    ROS_INFO("TESTING IF THIS GETS REACHED 1");
+    // ROS_DEBUG("TESTING IF THIS GETS REACHED %f, %f, %f, %f , %f, %f, %f", joint_array[0] * 180.0 / M_PI, 
+    // joint_array[1] * 180.0 / M_PI, joint_array[2] * 180.0 / M_PI, joint_array[3] * 180.0 / M_PI, 
+    // joint_array[4] * 180.0 / M_PI, joint_array[5] * 180.0 / M_PI, joint_array[6] * 180.0 / M_PI);
     output->mutable_robot()->mutable_joints()->mutable_velocity()->set_values(
         0, (double)joint_array[0] * 180.0 / M_PI);
     output->mutable_robot()->mutable_joints()->mutable_velocity()->set_values(
         1, (double)joint_array[1] * 180.0 / M_PI);
     output->mutable_robot()->mutable_joints()->mutable_velocity()->set_values(
-        2, (double)joint_array[3] * 180.0 / M_PI);
+        2, (double)joint_array[2] * 180.0 / M_PI);
     output->mutable_robot()->mutable_joints()->mutable_velocity()->set_values(
-        3, (double)joint_array[4] * 180.0 / M_PI);
+        3, (double)joint_array[3] * 180.0 / M_PI);
     output->mutable_robot()->mutable_joints()->mutable_velocity()->set_values(
-        4, (double)joint_array[5] * 180.0 / M_PI);
+        4, (double)joint_array[4] * 180.0 / M_PI);
     output->mutable_robot()->mutable_joints()->mutable_velocity()->set_values(
-        5, (double)joint_array[6] * 180.0 / M_PI);
+        5, (double) joint_array[5] * 180.0 / M_PI);
   }
   if (output->mutable_external()
           ->mutable_joints()
@@ -243,24 +239,24 @@ void YumiEGMInterface::copyVelocityArrayToEGMOutput( const float *const joint_ar
     output->mutable_external()
         ->mutable_joints()
         ->mutable_velocity()
-        ->set_values(0, (double)joint_array[2] * 180.0 / M_PI);
+        ->set_values(0, (double)joint_array[6] * 180.0 / M_PI);//joint_array[2] * 180.0 / M_PI);
   }
 }
 
 // TODO test this
 void YumiEGMInterface::copyPositionArrayToEGMOutput( const float *const joint_array,
                              ::wrapper::Output *const output) const {
-ROS_DEBUG("TESTING IF THIS GETS REACHED TOO, mutable pos output no. = %i",
-            output->mutable_robot()
-                ->mutable_joints()
-                ->mutable_position()
-                ->values_size());
+// ROS_DEBUG("TESTING IF THIS GETS REACHED TOO, mutable pos output no. = %i",
+            // output->mutable_robot()
+            //     ->mutable_joints()
+            //     ->mutable_position()
+            //     ->values_size());
   if (output->mutable_robot()
           ->mutable_joints()
           ->mutable_position()
-          ->values_size() > N_JOINTS_ARM - 1) // prevents seg fault
+          ->values_size() > N_JOINTS_ARM - 2) // prevents seg fault
   {
-    ROS_INFO("TESTING IF THIS GETS REACHED 1. POS");
+    // ROS_DEBUG("TESTING IF THIS GETS REACHED 1. POS");
     output->mutable_robot()->mutable_joints()->mutable_position()->set_values(
         0, (double)joint_array[0] * 180.0 / M_PI);
     output->mutable_robot()->mutable_joints()->mutable_position()->set_values(
@@ -279,7 +275,6 @@ ROS_DEBUG("TESTING IF THIS GETS REACHED TOO, mutable pos output no. = %i",
           ->mutable_position()
           ->values_size() > 0) // prevents seg fault
   {
-    ROS_INFO("TESTING IF THIS GETS REACHED 2. POS");
     output->mutable_external()
         ->mutable_joints()
         ->mutable_position()
@@ -339,8 +334,6 @@ bool YumiEGMInterface::initEGM() {
   configuration.use_logging = true;
   configuration.use_velocity_outputs = true; 
   
-
-
   egm_interface_.reset(
       new EGMControllerInterface(io_service_, egm_port_, configuration));
   std::cout << "  EGM init started" << std::endl;

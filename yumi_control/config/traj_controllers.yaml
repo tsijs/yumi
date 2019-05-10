@@ -1,7 +1,7 @@
 # Publish all joint states -----------------------------------
 joint_state_controller:
   type: joint_state_controller/JointStateController
-  publish_rate: 50
+  publish_rate: 500
 
 
 
@@ -25,6 +25,8 @@ joint_traj_pos_controller_l:
     yumi_joint_4_l: {p: 1.5,  d: 0, i: 0.002, i_clamp: 0.1}
     yumi_joint_5_l: {p: 1.5,  d: 0, i: 0.002, i_clamp: 0.1}
     yumi_joint_6_l: {p: 1.5,  d: 0, i: 0.002, i_clamp: 0.1}
+  constraints:
+      goal_time: 10.0
 
 
 joint_traj_pos_controller_r:
@@ -45,6 +47,8 @@ joint_traj_pos_controller_r:
     yumi_joint_4_l: {p: 1.5,  d: 0, i: 0.002, i_clamp: 0.1}
     yumi_joint_5_l: {p: 1.5,  d: 0, i: 0.002, i_clamp: 0.1}
     yumi_joint_6_l: {p: 1.5,  d: 0, i: 0.002, i_clamp: 0.1}
+  constraints:
+      goal_time: 10.0
 
 
 # Joint Trajectory Velocity Controller ----------------------------------------
@@ -66,6 +70,8 @@ joint_traj_vel_controller_l:
     yumi_joint_4_l: {p: 1.5,  d: 0, i: 0.002, i_clamp: 0.1}
     yumi_joint_5_l: {p: 1.5,  d: 0, i: 0.002, i_clamp: 0.1}
     yumi_joint_6_l: {p: 1.5,  d: 0, i: 0.002, i_clamp: 0.1}
+  constraints:
+      goal_time: 10.0
 
 
 
@@ -87,3 +93,5 @@ joint_traj_vel_controller_r:
     yumi_joint_4_r: {p: 1.5,  d: 0, i: 0.002, i_clamp: 0.1}
     yumi_joint_5_r: {p: 1.5,  d: 0, i: 0.002, i_clamp: 0.1}
     yumi_joint_6_r: {p: 1.5,  d: 0, i: 0.002, i_clamp: 0.1}
+  constraints:
+      goal_time: 10.0
