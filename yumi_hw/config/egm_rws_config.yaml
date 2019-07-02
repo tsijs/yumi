@@ -1,7 +1,7 @@
 # Configuration parameters for EGM/RWS connections to the YuMi Robot
 rws:
-  ip: 192.168.122.122
-  port: 8080
+  ip: 192.168.125.1
+  port: 80
   delay_time: 1.0
   max_signal_retries: 5
 

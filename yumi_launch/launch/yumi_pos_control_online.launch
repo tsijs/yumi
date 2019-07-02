@@ -5,28 +5,13 @@
 
     <!-- Load joint controller configurations from YAML file to parameter server -->
     <rosparam file="$(find yumi_control)/config/velocity_controllers.yaml" command="load" ns="/yumi"/>
-    <!--    <arg name="arm_controllers" default="joint_state_controller 
-                                     joint_vel_controller_1_r
-                                     joint_vel_controller_2_r
-                                     joint_vel_controller_7_r
-                                     joint_vel_controller_3_r
-                                     joint_vel_controller_4_r
-                                     joint_vel_controller_5_r
-                                     joint_vel_controller_6_r
-                                     joint_vel_controller_1_l
-                                     joint_vel_controller_2_l
-                                     joint_vel_controller_7_l
-                                     joint_vel_controller_3_l
-                                     joint_vel_controller_4_l
-                                     joint_vel_controller_5_l
-                                     joint_vel_controller_6_l"/>-->
-     <arg name="controllers" default="joint_state_controller 
-                                     joint_group_vel_controller_l
-                                     joint_group_vel_controller_r"/> 
+    <arg name="controllers" default="joint_state_controller 
+                                     joint_group_pos_controller_l
+                                     joint_group_pos_controller_r"/> 
     <node name="arm_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="$(arg arm_controllers)" ns="/yumi"/>
 
 	<!--  Hardware interfaces for the joints and  grippers -->    
-    <arg name="arms_hardware_interface" default="VelocityJointInterface"/>
+    <arg name="arms_hardware_interface" default="PositionJointInterface"/>
     <arg name="grippers_hardware_interface" default="EffortJointInterface"/>
 
     <!-- URDF / SRDF parameters -->
@@ -53,18 +38,18 @@
     </node>
      
     <!-- The grippers hardware interface -->
-    <node required="true" name="yumi_gripper" pkg="yumi_hw" type="yumi_gripper_node" respawn="false" ns="/yumi" output="screen"> 
+    <!--node required="true" name="yumi_gripper" pkg="yumi_hw" type="yumi_gripper_node" respawn="false" ns="/yumi" output="screen"> 
         <param name="ip" value="$(arg ip)"/>
     </node>
-
+-->
     <!-- Joint state and robot state publisher calls -->
     <node name="yumi_joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
-        <rosparam param="source_list">["/yumi/joint_states"]</rosparam>
+        <rosparam param="source_list">["yumi/joint_states"]</rosparam>
     </node>
     <node name="yumi_robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
 
     <!-- Show robot in Rviz   -->
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find yumi_description)/yumi.rviz"/>
 
-</launch>
+</launch> 
 

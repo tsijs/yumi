@@ -195,7 +195,7 @@ public:
     nh_.param<double>("publish_period", js_rate, 0.1);
     nh_.param("port_stream", port_s, DEFAULT_STATE_PORT);
     nh_.param("port_command", port_c, DEFAULT_COMMAND_PORT);
-    nh_.param("grasp_force", default_force, 5);
+    nh_.param("grasp_force", default_force, 10);
     nh_.param("ip", ip, std::string("192.168.125.1"));
 
     heartbeat_ = nh_.createTimer(ros::Duration(js_rate),
