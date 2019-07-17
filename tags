@@ -9,7 +9,6 @@
 0.0.4 (2017-01-12)	yumi_control/CHANGELOG.rst	/^0.0.4 (2017-01-12)$/;"	s	chapter:Changelog for package yumi_control
 CMAKE_BUILD_TYPE	gazebo_mimic/CMakeLists.txt	/^set(CMAKE_BUILD_TYPE Release)$/;"	v
 CMAKE_BUILD_TYPE	yumi_hw/CMakeLists.txt	/^set(CMAKE_BUILD_TYPE RelWithDebInfo)$/;"	v
-CMAKE_BUILD_TYPE	yumi_hw_demo/CMakeLists.txt	/^set(CMAKE_BUILD_TYPE RelWithDebInfo)$/;"	v
 CMAKE_BUILD_TYPE	yumi_msgs/CMakeLists.txt	/^set(CMAKE_BUILD_TYPE RelWithDebInfo)$/;"	v
 CMAKE_BUILD_TYPE	yumi_test_controllers/CMakeLists.txt	/^set(CMAKE_BUILD_TYPE RelWithDebInfo)$/;"	v
 CMAKE_CXX_FLAGS	gazebo_mimic/CMakeLists.txt	/^set(CMAKE_CXX_FLAGS "-O3 -std=c++11")$/;"	v
@@ -19,55 +18,39 @@ CamerasFTPHandler	yumi_cameras/scripts/standalone_verbose_FTP_server.py	/^class 
 Changelog for package yumi_control	yumi_control/CHANGELOG.rst	/^Changelog for package yumi_control$/;"	c
 ControlStrategy	yumi_hw/include/yumi_hw/yumi_hw.h	/^  enum ControlStrategy {$/;"	g	class:YumiHW
 DEFAULT_COMMAND_PORT	yumi_hw/include/yumi_gripper_node.h	/^#define DEFAULT_COMMAND_PORT /;"	d
-DEFAULT_COMMAND_PORT	yumi_hw_demo/include/yumi_gripper_node.h	/^#define DEFAULT_COMMAND_PORT /;"	d
 DEFAULT_STATE_PORT	yumi_hw/include/yumi_gripper_node.h	/^#define DEFAULT_STATE_PORT /;"	d
-DEFAULT_STATE_PORT	yumi_hw_demo/include/yumi_gripper_node.h	/^#define DEFAULT_STATE_PORT /;"	d
 GAZEBO_ROS_CREATE_H	gazebo_mimic/include/gazebo_mimic_plugin/mimic_plugin.h	/^#define GAZEBO_ROS_CREATE_H$/;"	d
 JOINT_EFFORT	yumi_hw/include/yumi_hw/yumi_hw.h	/^    JOINT_EFFORT = 20$/;"	e	enum:YumiHW::ControlStrategy
 JOINT_POSITION	yumi_hw/include/yumi_hw/yumi_hw.h	/^    JOINT_POSITION = 10,$/;"	e	enum:YumiHW::ControlStrategy
 JOINT_VELOCITY	yumi_hw/include/yumi_hw/yumi_hw.h	/^    JOINT_VELOCITY = 15,$/;"	e	enum:YumiHW::ControlStrategy
 LEFT_GRIPPER	yumi_hw/include/yumi_gripper_node.h	/^#define LEFT_GRIPPER /;"	d
-LEFT_GRIPPER	yumi_hw_demo/include/yumi_gripper_node.h	/^#define LEFT_GRIPPER /;"	d
 Load	gazebo_mimic/src/gazebo_mimic_plugin/mimic_plugin.cpp	/^void MimicPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf )$/;"	f	class:MimicPlugin	typeref:typename:void
 Load	yumi_hw/src/yumi_hw/yumi_hw_gazebo.cpp	/^  virtual void Load(gazebo::physics::ModelPtr parent, sdf::ElementPtr sdf) {$/;"	f	class:YumiHWsimPlugin	typeref:typename:void	file:
 MAX_NUMBER_OF_EGM_CONNECTIONS	yumi_hw/include/yumi_hw/arm_egm_interface.h	/^#define MAX_NUMBER_OF_EGM_CONNECTIONS /;"	d
 MSG_TYPE_GRIPPER_COMMAND	yumi_hw/include/yumi_gripper_node.h	/^#define MSG_TYPE_GRIPPER_COMMAND /;"	d
-MSG_TYPE_GRIPPER_COMMAND	yumi_hw_demo/include/yumi_gripper_node.h	/^#define MSG_TYPE_GRIPPER_COMMAND /;"	d
 MSG_TYPE_GRIPPER_STATE	yumi_hw/include/yumi_gripper_node.h	/^#define MSG_TYPE_GRIPPER_STATE /;"	d
-MSG_TYPE_GRIPPER_STATE	yumi_hw_demo/include/yumi_gripper_node.h	/^#define MSG_TYPE_GRIPPER_STATE /;"	d
 MimicPlugin	gazebo_mimic/include/gazebo_mimic_plugin/mimic_plugin.h	/^  class MimicPlugin : public ModelPlugin$/;"	c	namespace:gazebo
 MimicPlugin	gazebo_mimic/src/gazebo_mimic_plugin/mimic_plugin.cpp	/^MimicPlugin::MimicPlugin()$/;"	f	class:MimicPlugin
 N_ARMS	yumi_hw/include/yumi_hw/yumi_hw.h	/^#define N_ARMS /;"	d
 N_JOINTS_ARM	yumi_hw/include/yumi_hw/yumi_hw.h	/^#define N_JOINTS_ARM /;"	d
-PACKAGE	yumi_hw_demo/cfg/rws.cfg	/^PACKAGE = "yumi_hw_interface"$/;"	v
 RIGHT_GRIPPER	yumi_hw/include/yumi_gripper_node.h	/^#define RIGHT_GRIPPER /;"	d
-RIGHT_GRIPPER	yumi_hw_demo/include/yumi_gripper_node.h	/^#define RIGHT_GRIPPER /;"	d
 ROS packages for the ABB YuMi (IRB14000) robot	README.md	/^# ROS packages for the ABB YuMi (IRB14000) robot$/;"	c
 RapidCommThreadCallback	yumi_hw/include/yumi_gripper_node.h	/^  virtual void RapidCommThreadCallback() {$/;"	f	class:YumiGripperStateInterface	typeref:typename:void
-RapidCommThreadCallback	yumi_hw_demo/include/yumi_gripper_node.h	/^  virtual void RapidCommThreadCallback() {$/;"	f	class:YumiGripperStateInterface	typeref:typename:void
 RapidCommThread_	yumi_hw/include/yumi_gripper_node.h	/^  boost::thread RapidCommThread_;$/;"	m	class:YumiGripperStateInterface	typeref:typename:boost::thread
-RapidCommThread_	yumi_hw_demo/include/yumi_gripper_node.h	/^  boost::thread RapidCommThread_;$/;"	m	class:YumiGripperStateInterface	typeref:typename:boost::thread
 Reset	yumi_hw/src/yumi_hw/yumi_hw_gazebo.cpp	/^  virtual void Reset() {$/;"	f	class:YumiHWsimPlugin	typeref:typename:void	file:
 Update	yumi_hw/src/yumi_hw/yumi_hw_gazebo.cpp	/^  void Update() {$/;"	f	class:YumiHWsimPlugin	typeref:typename:void	file:
 UpdateChild	gazebo_mimic/src/gazebo_mimic_plugin/mimic_plugin.cpp	/^void MimicPlugin::UpdateChild()$/;"	f	class:MimicPlugin	typeref:typename:void
 YUMI_GRIPPER_NODE_H	yumi_hw/include/yumi_gripper_node.h	/^#define YUMI_GRIPPER_NODE_H$/;"	d
-YUMI_GRIPPER_NODE_H	yumi_hw_demo/include/yumi_gripper_node.h	/^#define YUMI_GRIPPER_NODE_H$/;"	d
 YUMI_HW_EGM_H	yumi_hw/include/yumi_hw/arm_egm_interface.h	/^#define YUMI_HW_EGM_H$/;"	d
 YUMI_HW_H	yumi_hw/include/yumi_hw/yumi_hw.h	/^#define YUMI_HW_H$/;"	d
-YUMI_HW_RWS_H	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^#define YUMI_HW_RWS_H$/;"	d
 YumiEGMInterface	yumi_hw/include/yumi_hw/arm_egm_interface.h	/^class YumiEGMInterface {$/;"	c
 YumiEGMInterface	yumi_hw/src/yumi_hw/arm_egm_interface.cpp	/^YumiEGMInterface::YumiEGMInterface(const std::string task, const unsigned int egm_port, const st/;"	f	class:YumiEGMInterface
 YumiEGMInterface	yumi_hw/src/yumi_hw/arm_egm_interface.cpp	/^YumiEGMInterface::YumiEGMInterface(std::string task, const unsigned int egm_port, const std::sha/;"	f	class:YumiEGMInterface
 YumiGripperNode	yumi_hw/include/yumi_gripper_node.h	/^  YumiGripperNode() {$/;"	f	class:YumiGripperNode
 YumiGripperNode	yumi_hw/include/yumi_gripper_node.h	/^class YumiGripperNode {$/;"	c
-YumiGripperNode	yumi_hw_demo/include/yumi_gripper_node.h	/^  YumiGripperNode() {$/;"	f	class:YumiGripperNode
-YumiGripperNode	yumi_hw_demo/include/yumi_gripper_node.h	/^class YumiGripperNode {$/;"	c
 YumiGripperStateHandler	yumi_hw/include/yumi_gripper_node.h	/^class YumiGripperStateHandler$/;"	c
-YumiGripperStateHandler	yumi_hw_demo/include/yumi_gripper_node.h	/^class YumiGripperStateHandler$/;"	c
 YumiGripperStateInterface	yumi_hw/include/yumi_gripper_node.h	/^  YumiGripperStateInterface() {$/;"	f	class:YumiGripperStateInterface
 YumiGripperStateInterface	yumi_hw/include/yumi_gripper_node.h	/^class YumiGripperStateInterface {$/;"	c
-YumiGripperStateInterface	yumi_hw_demo/include/yumi_gripper_node.h	/^  YumiGripperStateInterface() {$/;"	f	class:YumiGripperStateInterface
-YumiGripperStateInterface	yumi_hw_demo/include/yumi_gripper_node.h	/^class YumiGripperStateInterface {$/;"	c
 YumiHW	yumi_hw/include/yumi_hw/yumi_hw.h	/^class YumiHW : public hardware_interface::RobotHW {$/;"	c
 YumiHW	yumi_hw/src/yumi_hw/yumi_hw.cpp	/^YumiHW::YumiHW() \/\/ (const double &exponential_smoothing_alpha$/;"	f	class:YumiHW
 YumiHWEGM	yumi_hw/include/yumi_hw/yumi_hw_egm.h	/^class YumiHWEGM : public YumiHW {$/;"	c
@@ -78,14 +61,11 @@ YumiHWRWS	yumi_hw/include/yumi_hw/yumi_hw_rws.h	/^class YumiHWRWS : public YumiH
 YumiHWRWS	yumi_hw/src/yumi_hw/yumi_hw_rws.cpp	/^YumiHWRWS::YumiHWRWS(const double &exponential_smoothing_alpha)$/;"	f	class:YumiHWRWS
 YumiHWsimPlugin	yumi_hw/src/yumi_hw/yumi_hw_gazebo.cpp	/^  YumiHWsimPlugin() : gazebo::ModelPlugin() {}$/;"	f	class:YumiHWsimPlugin	file:
 YumiHWsimPlugin	yumi_hw/src/yumi_hw/yumi_hw_gazebo.cpp	/^class YumiHWsimPlugin : public gazebo::ModelPlugin {$/;"	c	file:
-YumiHwRws	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^class YumiHwRws : public YumiHW {$/;"	c
 YumiJointStateHandler	yumi_hw/include/yumi_hw/arm_rws_interface.h	/^class YumiJointStateHandler$/;"	c
-YumiJointStateHandler	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^class YumiJointStateHandler$/;"	c
 YumiRWSInterface	yumi_hw/include/yumi_hw/arm_rws_interface.h	/^class YumiRWSInterface {$/;"	c
 YumiRWSInterface	yumi_hw/src/yumi_hw/arm_rws_interface.cpp	/^YumiRWSInterface::YumiRWSInterface() {$/;"	f	class:YumiRWSInterface
 YumiRWSforEGMWrapper	yumi_hw/include/yumi_hw/arm_egm_interface.h	/^class YumiRWSforEGMWrapper: public RWSStateMachineInterface {$/;"	c
 YumiRWSforEGMWrapper	yumi_hw/src/yumi_hw/arm_egm_interface.cpp	/^YumiRWSforEGMWrapper::YumiRWSforEGMWrapper(const std::string ip_address, const unsigned short po/;"	f	class:YumiRWSforEGMWrapper
-YumiRwsInterface	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^class YumiRwsInterface {$/;"	c
 __YUMI_CAMERAS_RWS_H	yumi_cameras/include/yumi_cameras/yumi_cameras_rws.h	/^#define __YUMI_CAMERAS_RWS_H$/;"	d
 __YUMI_HW_GAZEBO_H	yumi_hw/include/yumi_hw/yumi_hw_gazebo.h	/^#define __YUMI_HW_GAZEBO_H$/;"	d
 __YUMI_TEST_CONTROLLERS_H	yumi_test_controllers/include/yumi_test_controllers.h	/^#define __YUMI_TEST_CONTROLLERS_H$/;"	d
@@ -93,21 +73,15 @@ authorizer	yumi_cameras/scripts/ROS_cameras_FTP_server.py	/^authorizer = None$/;
 authorizer	yumi_cameras/scripts/standalone_verbose_FTP_server.py	/^authorizer = None$/;"	v
 bridge	yumi_cameras/scripts/ROS_cameras_FTP_server.py	/^bridge = CvBridge()$/;"	v
 c_joint_commands_set_	yumi_hw/include/yumi_hw/arm_rws_interface.h	/^  boost::condition_variable c_joint_commands_set_;$/;"	m	class:YumiJointStateHandler	typeref:typename:boost::condition_variable
-c_joint_commands_set_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  boost::condition_variable c_joint_commands_set_;$/;"	m	class:YumiJointStateHandler	typeref:typename:boost::condition_variable
 c_joint_state_received_	yumi_hw/include/yumi_hw/arm_rws_interface.h	/^  boost::condition_variable c_joint_state_received_;$/;"	m	class:YumiJointStateHandler	typeref:typename:boost::condition_variable
-c_joint_state_received_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  boost::condition_variable c_joint_state_received_;$/;"	m	class:YumiJointStateHandler	typeref:typename:boost::condition_variable
 callback	yumi_hw/scripts/rws_egm_joints_remap.py	/^def callback(data):$/;"	f
-callback	yumi_hw_demo/scripts/rws_egm_joints_remap.py	/^def callback(data):$/;"	f
 canSwitch	yumi_hw/src/yumi_hw/yumi_hw.cpp	/^bool YumiHW::canSwitch($/;"	f	class:YumiHW	typeref:typename:bool
 close_FTP_server	yumi_cameras/scripts/ROS_cameras_FTP_server.py	/^def close_FTP_server():$/;"	f
 close_FTP_server	yumi_cameras/scripts/standalone_verbose_FTP_server.py	/^def close_FTP_server():$/;"	f
 configureEGM	yumi_hw/src/yumi_hw/arm_egm_interface.cpp	/^void YumiEGMInterface::configureEGM(const $/;"	f	class:YumiEGMInterface	typeref:typename:void
 connection_	yumi_hw/include/yumi_gripper_node.h	/^  industrial::smpl_msg_connection::SmplMsgConnection *connection_;$/;"	m	class:YumiGripperStateInterface	typeref:typename:industrial::smpl_msg_connection::SmplMsgConnection *
 connection_	yumi_hw/include/yumi_hw/arm_rws_interface.h	/^  industrial::smpl_msg_connection::SmplMsgConnection *connection_;$/;"	m	class:YumiRWSInterface	typeref:typename:industrial::smpl_msg_connection::SmplMsgConnection *
-connection_	yumi_hw_demo/include/yumi_gripper_node.h	/^  industrial::smpl_msg_connection::SmplMsgConnection *connection_;$/;"	m	class:YumiGripperStateInterface	typeref:typename:industrial::smpl_msg_connection::SmplMsgConnection *
-connection_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  industrial::smpl_msg_connection::SmplMsgConnection *connection_;$/;"	m	class:YumiRwsInterface	typeref:typename:industrial::smpl_msg_connection::SmplMsgConnection *
 connection_command	yumi_hw/include/yumi_gripper_node.h	/^  industrial::smpl_msg_connection::SmplMsgConnection *connection_command;$/;"	m	class:YumiGripperStateInterface	typeref:typename:industrial::smpl_msg_connection::SmplMsgConnection *
-connection_command	yumi_hw_demo/include/yumi_gripper_node.h	/^  industrial::smpl_msg_connection::SmplMsgConnection *connection_command;$/;"	m	class:YumiGripperStateInterface	typeref:typename:industrial::smpl_msg_connection::SmplMsgConnection *
 control_period_	yumi_hw/src/yumi_hw/yumi_hw_gazebo.cpp	/^  ros::Duration control_period_;$/;"	m	class:YumiHWsimPlugin	typeref:typename:ros::Duration	file:
 controller_manager_	yumi_hw/src/yumi_hw/yumi_hw_gazebo.cpp	/^  std::shared_ptr<controller_manager::ControllerManager> controller_manager_;$/;"	m	class:YumiHWsimPlugin	typeref:typename:std::shared_ptr<controller_manager::ControllerManager>	file:
 copyEGMInputToArray	yumi_hw/src/yumi_hw/arm_egm_interface.cpp	/^void YumiEGMInterface::copyEGMInputToArray( ::wrapper::Input *const input,$/;"	f	class:YumiEGMInterface	typeref:typename:void
@@ -117,20 +91,13 @@ create	yumi_hw/src/yumi_hw/yumi_hw.cpp	/^void YumiHW::create(std::string name, s
 curr_call_time	yumi_test_controllers/src/test_vel_control.cpp	/^auto curr_call_time = std::chrono::high_resolution_clock::now();;$/;"	v	typeref:typename:auto
 current_strategy_	yumi_hw/include/yumi_hw/yumi_hw.h	/^  ControlStrategy current_strategy_;$/;"	m	class:YumiHW	typeref:typename:ControlStrategy
 data_buffer_mutex	yumi_hw/include/yumi_gripper_node.h	/^  boost::mutex data_buffer_mutex;$/;"	m	class:YumiGripperStateHandler	typeref:typename:boost::mutex
-data_buffer_mutex	yumi_hw_demo/include/yumi_gripper_node.h	/^  boost::mutex data_buffer_mutex;$/;"	m	class:YumiGripperStateHandler	typeref:typename:boost::mutex
 data_buffer_mutex_	yumi_hw/include/yumi_hw/arm_rws_interface.h	/^  boost::mutex data_buffer_mutex_;$/;"	m	class:YumiJointStateHandler	typeref:typename:boost::mutex
 data_buffer_mutex_	yumi_hw/include/yumi_hw/yumi_hw_egm.h	/^  boost::mutex data_buffer_mutex_;$/;"	m	class:YumiHWEGM	typeref:typename:boost::mutex
 data_buffer_mutex_	yumi_hw/include/yumi_hw/yumi_hw_rws.h	/^  boost::mutex data_buffer_mutex_;$/;"	m	class:YumiHWRWS	typeref:typename:boost::mutex
-data_buffer_mutex_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  boost::mutex data_buffer_mutex_;$/;"	m	class:YumiHwRws	typeref:typename:boost::mutex
-data_buffer_mutex_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  boost::mutex data_buffer_mutex_;$/;"	m	class:YumiJointStateHandler	typeref:typename:boost::mutex
 default_force	yumi_hw/include/yumi_gripper_node.h	/^  int default_force;$/;"	m	class:YumiGripperNode	typeref:typename:int
-default_force	yumi_hw_demo/include/yumi_gripper_node.h	/^  int default_force;$/;"	m	class:YumiGripperNode	typeref:typename:int
 default_tcp_connection_	yumi_hw/include/yumi_gripper_node.h	/^  industrial::tcp_client::TcpClient default_tcp_connection_;$/;"	m	class:YumiGripperStateInterface	typeref:typename:industrial::tcp_client::TcpClient
 default_tcp_connection_	yumi_hw/include/yumi_hw/arm_rws_interface.h	/^  industrial::tcp_client::TcpClient default_tcp_connection_; \/\/?$/;"	m	class:YumiRWSInterface	typeref:typename:industrial::tcp_client::TcpClient
-default_tcp_connection_	yumi_hw_demo/include/yumi_gripper_node.h	/^  industrial::tcp_client::TcpClient default_tcp_connection_;$/;"	m	class:YumiGripperStateInterface	typeref:typename:industrial::tcp_client::TcpClient
-default_tcp_connection_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  industrial::tcp_client::TcpClient default_tcp_connection_; \/\/?$/;"	m	class:YumiRwsInterface	typeref:typename:industrial::tcp_client::TcpClient
 default_tcp_connection_command	yumi_hw/include/yumi_gripper_node.h	/^  industrial::tcp_client::TcpClient default_tcp_connection_command;$/;"	m	class:YumiGripperStateInterface	typeref:typename:industrial::tcp_client::TcpClient
-default_tcp_connection_command	yumi_hw_demo/include/yumi_gripper_node.h	/^  industrial::tcp_client::TcpClient default_tcp_connection_command;$/;"	m	class:YumiGripperStateInterface	typeref:typename:industrial::tcp_client::TcpClient
 doSwitch	yumi_hw/src/yumi_hw/yumi_hw.cpp	/^void YumiHW::doSwitch($/;"	f	class:YumiHW	typeref:typename:void
 egm_interface_	yumi_hw/include/yumi_hw/arm_egm_interface.h	/^  std::shared_ptr<EGMControllerInterface> egm_interface_;$/;"	m	class:YumiEGMInterface	typeref:typename:std::shared_ptr<EGMControllerInterface>
 egm_port_	yumi_hw/include/yumi_hw/arm_egm_interface.h	/^  unsigned short egm_port_;$/;"	m	class:YumiEGMInterface	typeref:typename:unsigned short
@@ -138,24 +105,19 @@ egm_settings_	yumi_hw/include/yumi_hw/arm_egm_interface.h	/^  YumiRWSforEGMWrapp
 enforceLimits	yumi_hw/src/yumi_hw/yumi_hw.cpp	/^void YumiHW::enforceLimits(ros::Duration period) {$/;"	f	class:YumiHW	typeref:typename:void
 exponential_smoothing_alpha_	yumi_hw/include/yumi_hw/yumi_hw_rws.h	/^  double exponential_smoothing_alpha_;$/;"	m	class:YumiHWRWS	typeref:typename:double
 first_iteration_	yumi_hw/include/yumi_hw/arm_rws_interface.h	/^  bool first_iteration_;$/;"	m	class:YumiJointStateHandler	typeref:typename:bool
-first_iteration_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  bool first_iteration_;$/;"	m	class:YumiJointStateHandler	typeref:typename:bool
 first_run_in_position_mode_	yumi_hw/include/yumi_hw/yumi_hw_rws.h	/^  bool first_run_in_position_mode_;$/;"	m	class:YumiHWRWS	typeref:typename:bool
-first_run_in_position_mode_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  bool first_run_in_position_mode_;$/;"	m	class:YumiHwRws	typeref:typename:bool
 g_quit	yumi_hw/src/yumi_hw_ifce_node.cpp	/^bool g_quit = false;$/;"	v	typeref:typename:bool
 g_quit	yumi_test_controllers/src/test_vel_control.cpp	/^bool g_quit;$/;"	v	typeref:typename:bool
 gazebo	gazebo_mimic/include/gazebo_mimic_plugin/mimic_plugin.h	/^namespace gazebo$/;"	n
 gazebo_mimic	gazebo_mimic/CMakeLists.txt	/^project(gazebo_mimic)$/;"	p
 gazebo_mimic_plugin	gazebo_mimic/CMakeLists.txt	/^add_library(gazebo_mimic_plugin src\/gazebo_mimic_plugin\/mimic_plugin.cpp)$/;"	t
-gen	yumi_hw_demo/cfg/rws.cfg	/^gen = ParameterGenerator()$/;"	v
 getControlStrategy	yumi_hw/include/yumi_hw/yumi_hw.h	/^  ControlStrategy getControlStrategy() { return current_strategy_; };$/;"	f	class:YumiHW	typeref:typename:ControlStrategy
 getCurrentJointStates	yumi_hw/include/yumi_gripper_node.h	/^  void getCurrentJointStates(float &left, float &right) {$/;"	f	class:YumiGripperStateInterface	typeref:typename:void
 getCurrentJointStates	yumi_hw/src/yumi_hw/arm_egm_interface.cpp	/^void YumiEGMInterface::getCurrentJointStates(float (&joint_pos)[N_JOINTS_ARM],$/;"	f	class:YumiEGMInterface	typeref:typename:void
 getCurrentJointStates	yumi_hw/src/yumi_hw/arm_rws_interface.cpp	/^void YumiRWSInterface::getCurrentJointStates(float (&joints)[N_JOINTS_ARM]) {$/;"	f	class:YumiRWSInterface	typeref:typename:void
-getCurrentJointStates	yumi_hw_demo/include/yumi_gripper_node.h	/^  void getCurrentJointStates(float &left, float &right) {$/;"	f	class:YumiGripperStateInterface	typeref:typename:void
 getDelayTime	yumi_hw/include/yumi_hw/arm_egm_interface.h	/^    double getDelayTime() {return rws_delay_time_;}$/;"	f	class:YumiRWSforEGMWrapper	typeref:typename:double
 getEGMParams	yumi_hw/src/yumi_hw/arm_egm_interface.cpp	/^void YumiEGMInterface::getEGMParams(YumiRWSforEGMWrapper::EGMSettings& egm_settings) {$/;"	f	class:YumiEGMInterface	typeref:typename:void
 getGripperStates	yumi_hw/include/yumi_gripper_node.h	/^  bool getGripperStates(float &left, float &right) {$/;"	f	class:YumiGripperStateHandler	typeref:typename:bool
-getGripperStates	yumi_hw_demo/include/yumi_gripper_node.h	/^  bool getGripperStates(float &left, float &right) {$/;"	f	class:YumiGripperStateHandler	typeref:typename:bool
 getJointStates	yumi_hw/src/yumi_hw/arm_rws_interface.cpp	/^bool YumiJointStateHandler::getJointStates(float (&jnts)[N_JOINTS_ARM]) {$/;"	f	class:YumiJointStateHandler	typeref:typename:bool
 getParams	yumi_hw/src/yumi_hw/arm_egm_interface.cpp	/^void YumiEGMInterface::getParams() {$/;"	f	class:YumiEGMInterface	typeref:typename:void
 getParams	yumi_hw/src/yumi_hw/arm_egm_interface.cpp	/^void YumiRWSforEGMWrapper::getParams() {$/;"	f	class:YumiRWSforEGMWrapper	typeref:typename:void
@@ -163,48 +125,28 @@ getSettings	yumi_hw/src/yumi_hw/arm_egm_interface.cpp	/^bool YumiRWSforEGMWrappe
 getURDF	yumi_hw/src/yumi_hw/yumi_hw_gazebo.cpp	/^  std::string getURDF(std::string param_name) const {$/;"	f	class:YumiHWsimPlugin	typeref:typename:std::string	file:
 getURDF	yumi_hw/src/yumi_hw_ifce_node.cpp	/^std::string getURDF(ros::NodeHandle &model_nh_, std::string param_name) {$/;"	f	typeref:typename:std::string
 grasp_release_topic	yumi_hw/include/yumi_gripper_node.h	/^  std::string gripper_state_topic, grasp_request_topic, grasp_release_topic, ip;$/;"	m	class:YumiGripperNode	typeref:typename:std::string
-grasp_release_topic	yumi_hw_demo/include/yumi_gripper_node.h	/^  std::string gripper_state_topic, grasp_request_topic, grasp_release_topic, ip;$/;"	m	class:YumiGripperNode	typeref:typename:std::string
 grasp_request_topic	yumi_hw/include/yumi_gripper_node.h	/^  std::string gripper_state_topic, grasp_request_topic, grasp_release_topic, ip;$/;"	m	class:YumiGripperNode	typeref:typename:std::string
-grasp_request_topic	yumi_hw_demo/include/yumi_gripper_node.h	/^  std::string gripper_state_topic, grasp_request_topic, grasp_release_topic, ip;$/;"	m	class:YumiGripperNode	typeref:typename:std::string
 gripper_dograsp_service	yumi_hw/scripts/gazebo_grippers_remap.py	/^gripper_dograsp_service = None$/;"	v
-gripper_dograsp_service	yumi_hw_demo/scripts/gazebo_grippers_remap.py	/^gripper_dograsp_service = None$/;"	v
 gripper_handler	yumi_hw/include/yumi_gripper_node.h	/^  YumiGripperStateHandler gripper_handler;$/;"	m	class:YumiGripperStateInterface	typeref:typename:YumiGripperStateHandler
-gripper_handler	yumi_hw_demo/include/yumi_gripper_node.h	/^  YumiGripperStateHandler gripper_handler;$/;"	m	class:YumiGripperStateInterface	typeref:typename:YumiGripperStateHandler
 gripper_interface	yumi_hw/include/yumi_gripper_node.h	/^  YumiGripperStateInterface gripper_interface;$/;"	m	class:YumiGripperNode	typeref:typename:YumiGripperStateInterface
-gripper_interface	yumi_hw_demo/include/yumi_gripper_node.h	/^  YumiGripperStateInterface gripper_interface;$/;"	m	class:YumiGripperNode	typeref:typename:YumiGripperStateInterface
 gripper_l_cmd_callback	yumi_hw/scripts/gazebo_grippers_remap.py	/^def gripper_l_cmd_callback(cmd):$/;"	f
-gripper_l_cmd_callback	yumi_hw_demo/scripts/gazebo_grippers_remap.py	/^def gripper_l_cmd_callback(cmd):$/;"	f
 gripper_l_cmd_pub	yumi_hw/scripts/gazebo_grippers_remap.py	/^gripper_l_cmd_pub = None$/;"	v
-gripper_l_cmd_pub	yumi_hw_demo/scripts/gazebo_grippers_remap.py	/^gripper_l_cmd_pub = None$/;"	v
 gripper_l_cmd_subs	yumi_hw/scripts/gazebo_grippers_remap.py	/^gripper_l_cmd_subs = None$/;"	v
-gripper_l_cmd_subs	yumi_hw_demo/scripts/gazebo_grippers_remap.py	/^gripper_l_cmd_subs = None$/;"	v
 gripper_positions	yumi_hw/include/yumi_gripper_node.h	/^  float gripper_positions[2];$/;"	m	class:YumiGripperStateHandler	typeref:typename:float[2]
-gripper_positions	yumi_hw_demo/include/yumi_gripper_node.h	/^  float gripper_positions[2];$/;"	m	class:YumiGripperStateHandler	typeref:typename:float[2]
 gripper_r_cmd_callback	yumi_hw/scripts/gazebo_grippers_remap.py	/^def gripper_r_cmd_callback(cmd):$/;"	f
-gripper_r_cmd_callback	yumi_hw_demo/scripts/gazebo_grippers_remap.py	/^def gripper_r_cmd_callback(cmd):$/;"	f
 gripper_r_cmd_pub	yumi_hw/scripts/gazebo_grippers_remap.py	/^gripper_r_cmd_pub = None$/;"	v
-gripper_r_cmd_pub	yumi_hw_demo/scripts/gazebo_grippers_remap.py	/^gripper_r_cmd_pub = None$/;"	v
 gripper_r_cmd_subs	yumi_hw/scripts/gazebo_grippers_remap.py	/^gripper_r_cmd_subs = None$/;"	v
-gripper_r_cmd_subs	yumi_hw_demo/scripts/gazebo_grippers_remap.py	/^gripper_r_cmd_subs = None$/;"	v
 gripper_releasegrasp_service	yumi_hw/scripts/gazebo_grippers_remap.py	/^gripper_releasegrasp_service = None$/;"	v
-gripper_releasegrasp_service	yumi_hw_demo/scripts/gazebo_grippers_remap.py	/^gripper_releasegrasp_service = None$/;"	v
 gripper_srv_force	yumi_hw/scripts/gazebo_grippers_remap.py	/^gripper_srv_force = 5.0$/;"	v
-gripper_srv_force	yumi_hw_demo/scripts/gazebo_grippers_remap.py	/^gripper_srv_force = 5.0$/;"	v
 gripper_state_topic	yumi_hw/include/yumi_gripper_node.h	/^  std::string gripper_state_topic, grasp_request_topic, grasp_release_topic, ip;$/;"	m	class:YumiGripperNode	typeref:typename:std::string
-gripper_state_topic	yumi_hw_demo/include/yumi_gripper_node.h	/^  std::string gripper_state_topic, grasp_request_topic, grasp_release_topic, ip;$/;"	m	class:YumiGripperNode	typeref:typename:std::string
 gripper_status_publisher_	yumi_hw/include/yumi_gripper_node.h	/^  ros::Publisher gripper_status_publisher_;$/;"	m	class:YumiGripperNode	typeref:typename:ros::Publisher
-gripper_status_publisher_	yumi_hw_demo/include/yumi_gripper_node.h	/^  ros::Publisher gripper_status_publisher_;$/;"	m	class:YumiGripperNode	typeref:typename:ros::Publisher
 grippers_indices	yumi_hw/scripts/gazebo_grippers_remap.py	/^grippers_indices = [0, 1]$/;"	v
 grippers_indices	yumi_hw/scripts/rws_egm_joints_remap.py	/^grippers_indices = [14, 15]$/;"	v
-grippers_indices	yumi_hw_demo/scripts/gazebo_grippers_remap.py	/^grippers_indices = [0, 1]$/;"	v
-grippers_indices	yumi_hw_demo/scripts/rws_egm_joints_remap.py	/^grippers_indices = [14, 15]$/;"	v
 grippers_state_pub	yumi_hw/scripts/gazebo_grippers_remap.py	/^grippers_state_pub = None$/;"	v
-grippers_state_pub	yumi_hw_demo/scripts/gazebo_grippers_remap.py	/^grippers_state_pub = None$/;"	v
 handler	yumi_cameras/scripts/ROS_cameras_FTP_server.py	/^handler = None$/;"	v
 handler	yumi_cameras/scripts/standalone_verbose_FTP_server.py	/^handler = None$/;"	v
 has_params_	yumi_hw/include/yumi_hw/arm_egm_interface.h	/^  bool has_params_;$/;"	m	class:YumiEGMInterface	typeref:typename:bool
 heartbeat_	yumi_hw/include/yumi_gripper_node.h	/^  ros::Timer heartbeat_;$/;"	m	class:YumiGripperNode	typeref:typename:ros::Timer
-heartbeat_	yumi_hw_demo/include/yumi_gripper_node.h	/^  ros::Timer heartbeat_;$/;"	m	class:YumiGripperNode	typeref:typename:ros::Timer
 img_exposure	yumi_cameras/src/rws_continuous_trigger.cpp	/^float img_exposure = 4.0;$/;"	v	typeref:typename:float
 init	yumi_hw/include/yumi_gripper_node.h	/^  bool init(industrial::smpl_msg_connection::SmplMsgConnection *connection) {$/;"	f	class:YumiGripperStateHandler	typeref:typename:bool
 init	yumi_hw/include/yumi_gripper_node.h	/^  bool init(std::string ip = "", int port = DEFAULT_STATE_PORT,$/;"	f	class:YumiGripperStateInterface	typeref:typename:bool
@@ -214,8 +156,6 @@ init	yumi_hw/src/yumi_hw/arm_rws_interface.cpp	/^bool YumiJointStateHandler::ini
 init	yumi_hw/src/yumi_hw/arm_rws_interface.cpp	/^bool YumiRWSInterface::init(std::string ip, int port) {$/;"	f	class:YumiRWSInterface	typeref:typename:bool
 init	yumi_hw/src/yumi_hw/yumi_hw_egm.cpp	/^bool YumiHWEGM::init() {$/;"	f	class:YumiHWEGM	typeref:typename:bool
 init	yumi_hw/src/yumi_hw/yumi_hw_rws.cpp	/^bool YumiHWRWS::init() {$/;"	f	class:YumiHWRWS	typeref:typename:bool
-init	yumi_hw_demo/include/yumi_gripper_node.h	/^  bool init(industrial::smpl_msg_connection::SmplMsgConnection *connection) {$/;"	f	class:YumiGripperStateHandler	typeref:typename:bool
-init	yumi_hw_demo/include/yumi_gripper_node.h	/^  bool init(std::string ip = "", int port = DEFAULT_STATE_PORT,$/;"	f	class:YumiGripperStateInterface	typeref:typename:bool
 initEGM	yumi_hw/src/yumi_hw/arm_egm_interface.cpp	/^bool YumiEGMInterface::initEGM() {$/;"	f	class:YumiEGMInterface	typeref:typename:bool
 initOutput	yumi_hw/src/yumi_hw/arm_egm_interface.cpp	/^bool YumiEGMInterface::initOutput($/;"	f	class:YumiEGMInterface	typeref:typename:bool
 initRWS	yumi_cameras/src/rws_continuous_trigger.cpp	/^bool initRWS()$/;"	f	typeref:typename:bool
@@ -223,24 +163,17 @@ initRWS	yumi_hw/src/yumi_hw/arm_egm_interface.cpp	/^bool YumiEGMInterface::initR
 input_	yumi_hw/include/yumi_hw/arm_egm_interface.h	/^  std::shared_ptr<abb::egm::wrapper::Input> input_;$/;"	m	class:YumiEGMInterface	typeref:typename:std::shared_ptr<abb::egm::wrapper::Input>
 internalCB	yumi_hw/include/yumi_gripper_node.h	/^  bool internalCB(industrial::simple_message::SimpleMessage &in) {$/;"	f	class:YumiGripperStateHandler	typeref:typename:bool
 internalCB	yumi_hw/src/yumi_hw/arm_rws_interface.cpp	/^bool YumiJointStateHandler::internalCB($/;"	f	class:YumiJointStateHandler	typeref:typename:bool
-internalCB	yumi_hw_demo/include/yumi_gripper_node.h	/^  bool internalCB(industrial::simple_message::SimpleMessage &in) {$/;"	f	class:YumiGripperStateHandler	typeref:typename:bool
 io_service_	yumi_hw/include/yumi_hw/arm_egm_interface.h	/^  boost::asio::io_service io_service_;$/;"	m	class:YumiEGMInterface	typeref:typename:boost::asio::io_service
 io_service_threads_	yumi_hw/include/yumi_hw/arm_egm_interface.h	/^  boost::thread_group io_service_threads_;$/;"	m	class:YumiEGMInterface	typeref:typename:boost::thread_group
 ip	yumi_hw/include/yumi_gripper_node.h	/^  std::string gripper_state_topic, grasp_request_topic, grasp_release_topic, ip;$/;"	m	class:YumiGripperNode	typeref:typename:std::string
-ip	yumi_hw_demo/include/yumi_gripper_node.h	/^  std::string gripper_state_topic, grasp_request_topic, grasp_release_topic, ip;$/;"	m	class:YumiGripperNode	typeref:typename:std::string
 ip_	yumi_hw/include/yumi_hw/yumi_hw_egm.h	/^  std::string ip_;$/;"	m	class:YumiHWEGM	typeref:typename:std::string
 ip_	yumi_hw/include/yumi_hw/yumi_hw_rws.h	/^  std::string ip_;$/;"	m	class:YumiHWRWS	typeref:typename:std::string
-ip_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  std::string ip_;$/;"	m	class:YumiHwRws	typeref:typename:std::string
 is_initialized_	yumi_hw/include/yumi_hw/yumi_hw_egm.h	/^  bool is_initialized_;$/;"	m	class:YumiHWEGM	typeref:typename:bool
 is_initialized_	yumi_hw/include/yumi_hw/yumi_hw_rws.h	/^  bool is_initialized_;$/;"	m	class:YumiHWRWS	typeref:typename:bool
-is_initialized_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  bool is_initialized_;$/;"	m	class:YumiHwRws	typeref:typename:bool
 is_setup_	yumi_hw/include/yumi_hw/yumi_hw_rws.h	/^  bool is_setup_;$/;"	m	class:YumiHWRWS	typeref:typename:bool
-is_setup_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  bool is_setup_;$/;"	m	class:YumiHwRws	typeref:typename:bool
 joint_	gazebo_mimic/include/gazebo_mimic_plugin/mimic_plugin.h	/^      physics::JointPtr joint_;$/;"	m	class:gazebo::MimicPlugin	typeref:typename:physics::JointPtr
 joint_command_	yumi_hw/include/yumi_hw/arm_rws_interface.h	/^  float joint_command_[N_JOINTS_ARM];$/;"	m	class:YumiJointStateHandler	typeref:typename:float[]
-joint_command_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  float joint_command_[N_YUMI_JOINTS];$/;"	m	class:YumiJointStateHandler	typeref:typename:float[]
 joint_commands_set_	yumi_hw/include/yumi_hw/arm_rws_interface.h	/^  bool joint_commands_set_;$/;"	m	class:YumiJointStateHandler	typeref:typename:bool
-joint_commands_set_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  bool joint_commands_set_;$/;"	m	class:YumiJointStateHandler	typeref:typename:bool
 joint_effort_	yumi_hw/include/yumi_hw/yumi_hw.h	/^      joint_effort_;$/;"	m	class:YumiHW	typeref:typename:std::vector<double>
 joint_lower_limits_	yumi_hw/include/yumi_hw/yumi_hw.h	/^          joint_lower_limits_, joint_upper_limits_;$/;"	m	class:YumiHW	typeref:typename:std::vector<double>
 joint_name_	gazebo_mimic/include/gazebo_mimic_plugin/mimic_plugin.h	/^      std::string joint_name_;$/;"	m	class:gazebo::MimicPlugin	typeref:typename:std::string
@@ -253,11 +186,8 @@ joint_position_prev_	yumi_hw/include/yumi_hw/yumi_hw.h	/^  std::vector<double> j
 joint_position_prev_l_	yumi_hw/include/yumi_hw/yumi_hw_egm.h	/^  float joint_position_prev_l_[N_JOINTS_ARM];$/;"	m	class:YumiHWEGM	typeref:typename:float[]
 joint_position_prev_r_	yumi_hw/include/yumi_hw/yumi_hw_egm.h	/^  float joint_position_prev_r_[N_JOINTS_ARM];$/;"	m	class:YumiHWEGM	typeref:typename:float[]
 joint_positions_	yumi_hw/include/yumi_hw/arm_rws_interface.h	/^  float joint_positions_[N_JOINTS_ARM];$/;"	m	class:YumiJointStateHandler	typeref:typename:float[]
-joint_positions_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  float joint_positions_[N_YUMI_JOINTS];$/;"	m	class:YumiJointStateHandler	typeref:typename:float[]
 joint_state_received_	yumi_hw/include/yumi_hw/arm_rws_interface.h	/^  bool joint_state_received_;$/;"	m	class:YumiJointStateHandler	typeref:typename:bool
-joint_state_received_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  bool joint_state_received_;$/;"	m	class:YumiJointStateHandler	typeref:typename:bool
 joint_states_callback	yumi_hw/scripts/gazebo_grippers_remap.py	/^def joint_states_callback(data):$/;"	f
-joint_states_callback	yumi_hw_demo/scripts/gazebo_grippers_remap.py	/^def joint_states_callback(data):$/;"	f
 joint_states_callback	yumi_test_controllers/src/test_traj_vel_control.cpp	/^void joint_states_callback(const sensor_msgs::JointState &msg)$/;"	f	typeref:typename:void
 joint_states_callback	yumi_test_controllers/src/test_vel_control.cpp	/^void joint_states_callback(const sensor_msgs::JointState &msg)$/;"	f	typeref:typename:void
 joint_targets_l_	yumi_hw/include/yumi_hw/yumi_hw_egm.h	/^  float joint_targets_l_[N_JOINTS_ARM];$/;"	m	class:YumiHWEGM	typeref:typename:float[]
@@ -272,32 +202,23 @@ joint_velocity_prev_r_	yumi_hw/include/yumi_hw/yumi_hw_egm.h	/^  float joint_vel
 joints_state	yumi_test_controllers/src/test_traj_vel_control.cpp	/^sensor_msgs::JointState joints_state;$/;"	v	typeref:typename:sensor_msgs::JointState
 joints_state	yumi_test_controllers/src/test_vel_control.cpp	/^sensor_msgs::JointState joints_state;$/;"	v	typeref:typename:sensor_msgs::JointState
 js_handler_	yumi_hw/include/yumi_hw/arm_rws_interface.h	/^  YumiJointStateHandler js_handler_;$/;"	m	class:YumiRWSInterface	typeref:typename:YumiJointStateHandler
-js_handler_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  YumiJointStateHandler js_handler_;$/;"	m	class:YumiRwsInterface	typeref:typename:YumiJointStateHandler
 js_rate	yumi_hw/include/yumi_gripper_node.h	/^  double js_rate;$/;"	m	class:YumiGripperNode	typeref:typename:double
-js_rate	yumi_hw_demo/include/yumi_gripper_node.h	/^  double js_rate;$/;"	m	class:YumiGripperNode	typeref:typename:double
 kill_sim	gazebo_mimic/include/gazebo_mimic_plugin/mimic_plugin.h	/^      bool kill_sim;$/;"	m	class:gazebo::MimicPlugin	typeref:typename:bool
 last_call_time	yumi_test_controllers/src/test_vel_control.cpp	/^auto last_call_time = std::chrono::high_resolution_clock::now();$/;"	v	typeref:typename:auto
 last_comm_	yumi_hw/include/yumi_hw/yumi_hw_rws.h	/^  float last_comm_[N_JOINTS_ARM];$/;"	m	class:YumiHWRWS	typeref:typename:float[]
-last_comm_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  float last_comm_[N_YUMI_JOINTS];$/;"	m	class:YumiHwRws	typeref:typename:float[]
 last_sample_time	yumi_test_controllers/src/test_vel_control.cpp	/^auto last_sample_time = std::chrono::high_resolution_clock::now();$/;"	v	typeref:typename:auto
 last_update_sim_time_ros_	yumi_hw/src/yumi_hw/yumi_hw_gazebo.cpp	/^  ros::Time last_update_sim_time_ros_;$/;"	m	class:YumiHWsimPlugin	typeref:typename:ros::Time	file:
 last_write_sim_time_ros_	yumi_hw/src/yumi_hw/yumi_hw_gazebo.cpp	/^  ros::Time last_write_sim_time_ros_;$/;"	m	class:YumiHWsimPlugin	typeref:typename:ros::Time	file:
 leftGripperCmdCallback	yumi_hw/include/yumi_gripper_node.h	/^  void leftGripperCmdCallback(const std_msgs::Float64::ConstPtr &msg) {$/;"	f	class:YumiGripperNode	typeref:typename:void
-leftGripperCmdCallback	yumi_hw_demo/include/yumi_gripper_node.h	/^  void leftGripperCmdCallback(const std_msgs::Float64::ConstPtr &msg) {$/;"	f	class:YumiGripperNode	typeref:typename:void
 left_arm_indices	yumi_hw/scripts/gazebo_grippers_remap.py	/^left_arm_indices = [0, 2, 4, 6, 8, 10, 12, 14]$/;"	v
 left_arm_indices	yumi_hw/scripts/rws_egm_joints_remap.py	/^left_arm_indices = [0, 2, 4, 6, 8, 10, 12]$/;"	v
-left_arm_indices	yumi_hw_demo/scripts/gazebo_grippers_remap.py	/^left_arm_indices = [0, 2, 4, 6, 8, 10, 12, 14]$/;"	v
-left_arm_indices	yumi_hw_demo/scripts/rws_egm_joints_remap.py	/^left_arm_indices = [0, 2, 4, 6, 8, 10, 12]$/;"	v
 left_arm_pub	yumi_hw/scripts/rws_egm_joints_remap.py	/^left_arm_pub = None$/;"	v
-left_arm_pub	yumi_hw_demo/scripts/rws_egm_joints_remap.py	/^left_arm_pub = None$/;"	v
 left_cam_pub	yumi_cameras/scripts/ROS_cameras_FTP_server.py	/^left_cam_pub = None$/;"	v
 left_command	yumi_test_controllers/src/test_vel_control.cpp	/^std_msgs::Float64 left_command;$/;"	v	typeref:typename:std_msgs::Float64
 left_command_sent	yumi_test_controllers/src/test_traj_vel_control.cpp	/^bool left_command_sent = false;$/;"	v	typeref:typename:bool
 left_controller_pub	yumi_test_controllers/src/test_vel_control.cpp	/^ros::Publisher left_controller_pub;$/;"	v	typeref:typename:ros::Publisher
 left_gripper_cmd	yumi_hw/include/yumi_gripper_node.h	/^  float left_gripper_cmd;$/;"	m	class:YumiGripperNode	typeref:typename:float
-left_gripper_cmd	yumi_hw_demo/include/yumi_gripper_node.h	/^  float left_gripper_cmd;$/;"	m	class:YumiGripperNode	typeref:typename:float
 left_gripper_cmd_sub	yumi_hw/include/yumi_gripper_node.h	/^  ros::Subscriber left_gripper_cmd_sub;$/;"	m	class:YumiGripperNode	typeref:typename:ros::Subscriber
-left_gripper_cmd_sub	yumi_hw_demo/include/yumi_gripper_node.h	/^  ros::Subscriber left_gripper_cmd_sub;$/;"	m	class:YumiGripperNode	typeref:typename:ros::Subscriber
 left_joint_pos	yumi_test_controllers/src/test_vel_control.cpp	/^std_msgs::Float64 left_joint_pos;$/;"	v	typeref:typename:std_msgs::Float64
 left_joint_state_idx	yumi_test_controllers/src/test_vel_control.cpp	/^int left_joint_state_idx = 4;$/;"	v	typeref:typename:int
 left_pub	yumi_test_controllers/src/test_traj_vel_control.cpp	/^ros::Publisher left_pub;$/;"	v	typeref:typename:ros::Publisher
@@ -306,40 +227,27 @@ left_traj	yumi_test_controllers/src/test_traj_vel_control.cpp	/^trajectory_msgs:
 left_vel_controller_callback	yumi_test_controllers/src/test_traj_vel_control.cpp	/^void left_vel_controller_callback(const ros::SingleSubscriberPublisher& pub)$/;"	f	typeref:typename:void
 listener	yumi_hw/scripts/gazebo_grippers_remap.py	/^def listener():$/;"	f
 listener	yumi_hw/scripts/rws_egm_joints_remap.py	/^def listener():$/;"	f
-listener	yumi_hw_demo/scripts/gazebo_grippers_remap.py	/^def listener():$/;"	f
-listener	yumi_hw_demo/scripts/rws_egm_joints_remap.py	/^def listener():$/;"	f
 main	yumi_cameras/scripts/ROS_cameras_FTP_server.py	/^def main():$/;"	f
 main	yumi_cameras/scripts/standalone_verbose_FTP_server.py	/^def main():$/;"	f
 main	yumi_cameras/src/rws_continuous_trigger.cpp	/^int main( int argc, char* argv[] )$/;"	f	typeref:typename:int
 main	yumi_hw/src/yumi_gripper_node.cpp	/^int main(int argc, char *argv[]) {$/;"	f	typeref:typename:int
 main	yumi_hw/src/yumi_hw_ifce_node.cpp	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
-main	yumi_hw_demo/src/dynamic_reconfigure_server.cpp	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
-main	yumi_hw_demo/src/yumi_hw_example.cpp	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
-main	yumi_hw_demo/src/yumi_hw_example_vel_control.cpp	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
-main	yumi_hw_demo/src/yumi_hw_ifce_node.cpp	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
-main	yumi_hw_demo/src/yumi_rws_backup_test.cpp	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
-main	yumi_hw_demo/src/yumi_rws_test.cpp	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
 main	yumi_test_controllers/src/test_traj_vel_control.cpp	/^int main( int argc, char* argv[] )$/;"	f	typeref:typename:int
 main	yumi_test_controllers/src/test_vel_control.cpp	/^int main( int argc, char* argv[] )$/;"	f	typeref:typename:int
 main_loop_period	yumi_cameras/src/rws_continuous_trigger.cpp	/^float main_loop_period = 1.0;$/;"	v	typeref:typename:float
 manager_	yumi_hw/include/yumi_gripper_node.h	/^  industrial::message_manager::MessageManager manager_;$/;"	m	class:YumiGripperStateInterface	typeref:typename:industrial::message_manager::MessageManager
 manager_	yumi_hw/include/yumi_hw/arm_rws_interface.h	/^  industrial::message_manager::MessageManager manager_;$/;"	m	class:YumiRWSInterface	typeref:typename:industrial::message_manager::MessageManager
-manager_	yumi_hw_demo/include/yumi_gripper_node.h	/^  industrial::message_manager::MessageManager manager_;$/;"	m	class:YumiGripperStateInterface	typeref:typename:industrial::message_manager::MessageManager
-manager_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  industrial::message_manager::MessageManager manager_;$/;"	m	class:YumiRwsInterface	typeref:typename:industrial::message_manager::MessageManager
 max_joint_velocity_	yumi_hw/include/yumi_hw/arm_egm_interface.h	/^  double max_joint_velocity_;$/;"	m	class:YumiEGMInterface	typeref:typename:double
 max_signal_retries_	yumi_hw/include/yumi_hw/arm_egm_interface.h	/^    int max_signal_retries_;$/;"	m	class:YumiRWSforEGMWrapper	typeref:typename:int
 mimic_joint_	gazebo_mimic/include/gazebo_mimic_plugin/mimic_plugin.h	/^      physics::JointPtr mimic_joint_;$/;"	m	class:gazebo::MimicPlugin	typeref:typename:physics::JointPtr
 mimic_joint_name_	gazebo_mimic/include/gazebo_mimic_plugin/mimic_plugin.h	/^      std::string mimic_joint_name_;$/;"	m	class:gazebo::MimicPlugin	typeref:typename:std::string
 mode_	yumi_hw/include/yumi_hw/arm_rws_interface.h	/^  int mode_;$/;"	m	class:YumiJointStateHandler	typeref:typename:int
-mode_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  int mode_;$/;"	m	class:YumiJointStateHandler	typeref:typename:int
 model_	gazebo_mimic/include/gazebo_mimic_plugin/mimic_plugin.h	/^      physics::ModelPtr model_;$/;"	m	class:gazebo::MimicPlugin	typeref:typename:physics::ModelPtr
 model_nh_	yumi_hw/src/yumi_hw/yumi_hw_gazebo.cpp	/^  ros::NodeHandle model_nh_;$/;"	m	class:YumiHWsimPlugin	typeref:typename:ros::NodeHandle	file:
 multiplier_	gazebo_mimic/include/gazebo_mimic_plugin/mimic_plugin.h	/^      double multiplier_;$/;"	m	class:gazebo::MimicPlugin	typeref:typename:double
 n_joints_	yumi_hw/include/yumi_hw/yumi_hw.h	/^  int n_joints_;$/;"	m	class:YumiHW	typeref:typename:int
 new_joint_position_	yumi_hw/include/yumi_hw/yumi_hw_rws.h	/^  float new_joint_position_[N_JOINTS_ARM];$/;"	m	class:YumiHWRWS	typeref:typename:float[]
-new_joint_position_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  float new_joint_position_[N_YUMI_JOINTS];$/;"	m	class:YumiHwRws	typeref:typename:float[]
 nh_	yumi_hw/include/yumi_gripper_node.h	/^  ros::NodeHandle nh_;$/;"	m	class:YumiGripperNode	typeref:typename:ros::NodeHandle
-nh_	yumi_hw_demo/include/yumi_gripper_node.h	/^  ros::NodeHandle nh_;$/;"	m	class:YumiGripperNode	typeref:typename:ros::NodeHandle
 node_namespace_	gazebo_mimic/include/gazebo_mimic_plugin/mimic_plugin.h	/^      std::string node_namespace_;$/;"	m	class:gazebo::MimicPlugin	typeref:typename:std::string
 np	yumi_cameras/scripts/ROS_cameras_FTP_server.py	/^import numpy as np$/;"	I
 np	yumi_cameras/scripts/standalone_verbose_FTP_server.py	/^import numpy as np$/;"	I
@@ -362,17 +270,13 @@ pixels_encoding	yumi_cameras/scripts/standalone_verbose_FTP_server.py	/^pixels_e
 pj_limits_interface_	yumi_hw/include/yumi_hw/yumi_hw.h	/^  joint_limits_interface::PositionJointSoftLimitsInterface pj_limits_interface_;$/;"	m	class:YumiHW	typeref:typename:joint_limits_interface::PositionJointSoftLimitsInterface
 pj_sat_interface_	yumi_hw/include/yumi_hw/yumi_hw.h	/^  joint_limits_interface::PositionJointSaturationInterface pj_sat_interface_;$/;"	m	class:YumiHW	typeref:typename:joint_limits_interface::PositionJointSaturationInterface
 port_	yumi_hw/include/yumi_hw/yumi_hw_rws.h	/^  int port_;$/;"	m	class:YumiHWRWS	typeref:typename:int
-port_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  int port_;$/;"	m	class:YumiHwRws	typeref:typename:int
 port_c	yumi_hw/include/yumi_gripper_node.h	/^  int port_s, port_c;$/;"	m	class:YumiGripperNode	typeref:typename:int
-port_c	yumi_hw_demo/include/yumi_gripper_node.h	/^  int port_s, port_c;$/;"	m	class:YumiGripperNode	typeref:typename:int
 port_egm_l_	yumi_hw/include/yumi_hw/yumi_hw_egm.h	/^  unsigned short port_egm_l_;$/;"	m	class:YumiHWEGM	typeref:typename:unsigned short
 port_egm_r_	yumi_hw/include/yumi_hw/yumi_hw_egm.h	/^  unsigned short port_egm_r_;$/;"	m	class:YumiHWEGM	typeref:typename:unsigned short
 port_rws_	yumi_hw/include/yumi_hw/yumi_hw_egm.h	/^  unsigned short port_rws_;$/;"	m	class:YumiHWEGM	typeref:typename:unsigned short
 port_s	yumi_hw/include/yumi_gripper_node.h	/^  int port_s, port_c;$/;"	m	class:YumiGripperNode	typeref:typename:int
-port_s	yumi_hw_demo/include/yumi_gripper_node.h	/^  int port_s, port_c;$/;"	m	class:YumiGripperNode	typeref:typename:int
 position_interface_	yumi_hw/include/yumi_hw/yumi_hw.h	/^  hardware_interface::PositionJointInterface position_interface_;$/;"	m	class:YumiHW	typeref:typename:hardware_interface::PositionJointInterface
 publishState	yumi_hw/include/yumi_gripper_node.h	/^  void publishState(const ros::TimerEvent &event) {$/;"	f	class:YumiGripperNode	typeref:typename:void
-publishState	yumi_hw_demo/include/yumi_gripper_node.h	/^  void publishState(const ros::TimerEvent &event) {$/;"	f	class:YumiGripperNode	typeref:typename:void
 publish_image_left_cam	yumi_cameras/scripts/ROS_cameras_FTP_server.py	/^def publish_image_left_cam(img):$/;"	f
 publish_image_right_cam	yumi_cameras/scripts/ROS_cameras_FTP_server.py	/^def publish_image_right_cam(img):$/;"	f
 quitRequested	yumi_hw/src/yumi_hw_ifce_node.cpp	/^void quitRequested(int sig) { g_quit = true; }$/;"	f	typeref:typename:void
@@ -381,40 +285,25 @@ read	yumi_hw/include/yumi_hw/yumi_hw_gazebo.h	/^  void read(ros::Time time, ros:
 read	yumi_hw/src/yumi_hw/yumi_hw_egm.cpp	/^void YumiHWEGM::read(ros::Time time, ros::Duration period) {$/;"	f	class:YumiHWEGM	typeref:typename:void
 read	yumi_hw/src/yumi_hw/yumi_hw_rws.cpp	/^void YumiHWRWS::read(ros::Time time, ros::Duration period) {$/;"	f	class:YumiHWRWS	typeref:typename:void
 read_joint_position_	yumi_hw/include/yumi_hw/yumi_hw_rws.h	/^  float read_joint_position_[N_JOINTS_ARM];$/;"	m	class:YumiHWRWS	typeref:typename:float[]
-read_joint_position_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  float read_joint_position_[N_YUMI_JOINTS];$/;"	m	class:YumiHwRws	typeref:typename:float[]
-reconfig_callback	yumi_hw_demo/src/dynamic_reconfigure_server.cpp	/^void reconfig_callback(yumi_hw_interface::rwsConfig &config, uint32_t level) {$/;"	f	typeref:typename:void
-reconfig_callback	yumi_hw_demo/src/yumi_rws_test.cpp	/^void reconfig_callback(yumi_hw_interface::rwsConfig &config, uint32_t level) {$/;"	f	typeref:typename:void
 registerInterfaces	yumi_hw/src/yumi_hw/yumi_hw.cpp	/^void YumiHW::registerInterfaces($/;"	f	class:YumiHW	typeref:typename:void
 registerJointLimits	yumi_hw/src/yumi_hw/yumi_hw.cpp	/^void YumiHW::registerJointLimits($/;"	f	class:YumiHW	typeref:typename:void
 request_grasp	yumi_hw/include/yumi_gripper_node.h	/^  bool request_grasp(yumi_msgs::YumiGrasp::Request &req,$/;"	f	class:YumiGripperNode	typeref:typename:bool
-request_grasp	yumi_hw_demo/include/yumi_gripper_node.h	/^  bool request_grasp(abb_irb14000_msgs::YumiGrasp::Request &req,$/;"	f	class:YumiGripperNode	typeref:typename:bool
 request_grasp_	yumi_hw/include/yumi_gripper_node.h	/^  ros::ServiceServer request_grasp_;$/;"	m	class:YumiGripperNode	typeref:typename:ros::ServiceServer
-request_grasp_	yumi_hw_demo/include/yumi_gripper_node.h	/^  ros::ServiceServer request_grasp_;$/;"	m	class:YumiGripperNode	typeref:typename:ros::ServiceServer
 request_grasp_handle	yumi_hw/scripts/gazebo_grippers_remap.py	/^def request_grasp_handle(req):$/;"	f
-request_grasp_handle	yumi_hw_demo/scripts/gazebo_grippers_remap.py	/^def request_grasp_handle(req):$/;"	f
 request_release	yumi_hw/include/yumi_gripper_node.h	/^  bool request_release(yumi_msgs::YumiGrasp::Request &req,$/;"	f	class:YumiGripperNode	typeref:typename:bool
-request_release	yumi_hw_demo/include/yumi_gripper_node.h	/^  bool request_release(abb_irb14000_msgs::YumiGrasp::Request &req,$/;"	f	class:YumiGripperNode	typeref:typename:bool
 request_release_	yumi_hw/include/yumi_gripper_node.h	/^  ros::ServiceServer request_release_;$/;"	m	class:YumiGripperNode	typeref:typename:ros::ServiceServer
-request_release_	yumi_hw_demo/include/yumi_gripper_node.h	/^  ros::ServiceServer request_release_;$/;"	m	class:YumiGripperNode	typeref:typename:ros::ServiceServer
 request_release_handle	yumi_hw/scripts/gazebo_grippers_remap.py	/^def request_release_handle(req):$/;"	f
-request_release_handle	yumi_hw_demo/scripts/gazebo_grippers_remap.py	/^def request_release_handle(req):$/;"	f
 reset	yumi_hw/src/yumi_hw/yumi_hw.cpp	/^void YumiHW::reset() {$/;"	f	class:YumiHW	typeref:typename:void
 rightGripperCmdCallback	yumi_hw/include/yumi_gripper_node.h	/^  void rightGripperCmdCallback(const std_msgs::Float64::ConstPtr &msg) {$/;"	f	class:YumiGripperNode	typeref:typename:void
-rightGripperCmdCallback	yumi_hw_demo/include/yumi_gripper_node.h	/^  void rightGripperCmdCallback(const std_msgs::Float64::ConstPtr &msg) {$/;"	f	class:YumiGripperNode	typeref:typename:void
 right_arm_indices	yumi_hw/scripts/gazebo_grippers_remap.py	/^right_arm_indices = [1, 3, 5, 7, 9, 11, 13, 15]$/;"	v
 right_arm_indices	yumi_hw/scripts/rws_egm_joints_remap.py	/^right_arm_indices = [1, 3, 5, 7, 9, 11, 13]$/;"	v
-right_arm_indices	yumi_hw_demo/scripts/gazebo_grippers_remap.py	/^right_arm_indices = [1, 3, 5, 7, 9, 11, 13, 15]$/;"	v
-right_arm_indices	yumi_hw_demo/scripts/rws_egm_joints_remap.py	/^right_arm_indices = [1, 3, 5, 7, 9, 11, 13]$/;"	v
 right_arm_pub	yumi_hw/scripts/rws_egm_joints_remap.py	/^right_arm_pub = None$/;"	v
-right_arm_pub	yumi_hw_demo/scripts/rws_egm_joints_remap.py	/^right_arm_pub = None$/;"	v
 right_cam_pub	yumi_cameras/scripts/ROS_cameras_FTP_server.py	/^right_cam_pub = None$/;"	v
 right_command	yumi_test_controllers/src/test_vel_control.cpp	/^std_msgs::Float64 right_command;$/;"	v	typeref:typename:std_msgs::Float64
 right_command_sent	yumi_test_controllers/src/test_traj_vel_control.cpp	/^bool right_command_sent = false;$/;"	v	typeref:typename:bool
 right_controller_pub	yumi_test_controllers/src/test_vel_control.cpp	/^ros::Publisher right_controller_pub;$/;"	v	typeref:typename:ros::Publisher
 right_gripper_cmd	yumi_hw/include/yumi_gripper_node.h	/^  float right_gripper_cmd;$/;"	m	class:YumiGripperNode	typeref:typename:float
-right_gripper_cmd	yumi_hw_demo/include/yumi_gripper_node.h	/^  float right_gripper_cmd;$/;"	m	class:YumiGripperNode	typeref:typename:float
 right_gripper_cmd_sub	yumi_hw/include/yumi_gripper_node.h	/^  ros::Subscriber right_gripper_cmd_sub;$/;"	m	class:YumiGripperNode	typeref:typename:ros::Subscriber
-right_gripper_cmd_sub	yumi_hw_demo/include/yumi_gripper_node.h	/^  ros::Subscriber right_gripper_cmd_sub;$/;"	m	class:YumiGripperNode	typeref:typename:ros::Subscriber
 right_joint_pos	yumi_test_controllers/src/test_vel_control.cpp	/^std_msgs::Float64 right_joint_pos;$/;"	v	typeref:typename:std_msgs::Float64
 right_joint_state_idx	yumi_test_controllers/src/test_vel_control.cpp	/^int right_joint_state_idx = 4;$/;"	v	typeref:typename:int
 right_pub	yumi_test_controllers/src/test_traj_vel_control.cpp	/^ros::Publisher right_pub;$/;"	v	typeref:typename:ros::Publisher
@@ -428,7 +317,6 @@ robot_namespace_	yumi_hw/include/yumi_hw/yumi_hw.h	/^  std::string robot_namespa
 robot_namespace_	yumi_hw/src/yumi_hw/yumi_hw_gazebo.cpp	/^  std::string robot_namespace_;$/;"	m	class:YumiHWsimPlugin	typeref:typename:std::string	file:
 rwsCommThreadCallback	yumi_hw/src/yumi_hw/arm_rws_interface.cpp	/^void YumiRWSInterface::rwsCommThreadCallback() {$/;"	f	class:YumiRWSInterface	typeref:typename:void
 rws_comm_thread_	yumi_hw/include/yumi_hw/arm_rws_interface.h	/^  boost::thread rws_comm_thread_;$/;"	m	class:YumiRWSInterface	typeref:typename:boost::thread
-rws_comm_thread_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  boost::thread rws_comm_thread_;$/;"	m	class:YumiRwsInterface	typeref:typename:boost::thread
 rws_continuous_trigger	yumi_cameras/CMakeLists.txt	/^  add_executable(rws_continuous_trigger src\/rws_continuous_trigger.cpp)$/;"	t
 rws_delay_time_	yumi_cameras/src/rws_continuous_trigger.cpp	/^double rws_delay_time_;$/;"	v	typeref:typename:double
 rws_delay_time_	yumi_hw/include/yumi_hw/arm_egm_interface.h	/^    double rws_delay_time_;$/;"	m	class:YumiRWSforEGMWrapper	typeref:typename:double
@@ -437,7 +325,6 @@ rws_interface_	yumi_cameras/src/rws_continuous_trigger.cpp	/^boost::shared_ptr<R
 rws_interface_	yumi_hw/include/yumi_hw/arm_egm_interface.h	/^  std::shared_ptr<YumiRWSforEGMWrapper> rws_interface_;$/;"	m	class:YumiEGMInterface	typeref:typename:std::shared_ptr<YumiRWSforEGMWrapper>
 rws_interface_	yumi_hw/include/yumi_hw/yumi_hw_egm.h	/^  std::shared_ptr<YumiRWSforEGMWrapper> rws_interface_;$/;"	m	class:YumiHWEGM	typeref:typename:std::shared_ptr<YumiRWSforEGMWrapper>
 rws_interface_	yumi_hw/include/yumi_hw/yumi_hw_rws.h	/^  YumiRWSInterface rws_interface_;$/;"	m	class:YumiHWRWS	typeref:typename:YumiRWSInterface
-rws_interface_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  YumiRwsInterface rws_interface_;$/;"	m	class:YumiHwRws	typeref:typename:YumiRwsInterface
 rws_ip_	yumi_cameras/src/rws_continuous_trigger.cpp	/^std::string rws_ip_, rws_port_;$/;"	v	typeref:typename:std::string
 rws_max_signal_retries_	yumi_cameras/src/rws_continuous_trigger.cpp	/^int rws_max_signal_retries_;$/;"	v	typeref:typename:int
 rws_mutex_	yumi_hw/include/yumi_hw/arm_egm_interface.h	/^    boost::mutex rws_mutex_;$/;"	m	class:YumiRWSforEGMWrapper	typeref:typename:boost::mutex
@@ -453,7 +340,6 @@ server	yumi_cameras/scripts/standalone_verbose_FTP_server.py	/^server = None$/;"
 setCameraParams	yumi_cameras/src/rws_continuous_trigger.cpp	/^void setCameraParams(CameraData* camera_data)$/;"	f	typeref:typename:void
 setControlStrategy	yumi_hw/include/yumi_hw/yumi_hw.h	/^  void setControlStrategy(ControlStrategy strategy) {$/;"	f	class:YumiHW	typeref:typename:void
 setGripperEfforts	yumi_hw/include/yumi_gripper_node.h	/^  void setGripperEfforts(float left, float right) {$/;"	f	class:YumiGripperStateInterface	typeref:typename:void
-setGripperEfforts	yumi_hw_demo/include/yumi_gripper_node.h	/^  void setGripperEfforts(float left, float right) {$/;"	f	class:YumiGripperStateInterface	typeref:typename:void
 setJointCommands	yumi_hw/src/yumi_hw/arm_rws_interface.cpp	/^bool YumiJointStateHandler::setJointCommands(float (&jnts)[N_JOINTS_ARM],$/;"	f	class:YumiJointStateHandler	typeref:typename:bool
 setJointTargets	yumi_hw/src/yumi_hw/arm_egm_interface.cpp	/^void YumiEGMInterface::setJointTargets($/;"	f	class:YumiEGMInterface	typeref:typename:void
 setJointTargets	yumi_hw/src/yumi_hw/arm_rws_interface.cpp	/^void YumiRWSInterface::setJointTargets(float (&joints)[N_JOINTS_ARM],$/;"	f	class:YumiRWSInterface	typeref:typename:void
@@ -469,20 +355,16 @@ sine_period	yumi_test_controllers/src/test_vel_control.cpp	/^double sine_period 
 startEGM	yumi_hw/src/yumi_hw/arm_egm_interface.cpp	/^bool YumiRWSforEGMWrapper::startEGM() {$/;"	f	class:YumiRWSforEGMWrapper	typeref:typename:bool
 startThreads	yumi_hw/include/yumi_gripper_node.h	/^  void startThreads() {$/;"	f	class:YumiGripperStateInterface	typeref:typename:void
 startThreads	yumi_hw/src/yumi_hw/arm_rws_interface.cpp	/^void YumiRWSInterface::startThreads() {$/;"	f	class:YumiRWSInterface	typeref:typename:void
-startThreads	yumi_hw_demo/include/yumi_gripper_node.h	/^  void startThreads() {$/;"	f	class:YumiGripperStateInterface	typeref:typename:void
 start_FTP_server	yumi_cameras/scripts/ROS_cameras_FTP_server.py	/^def start_FTP_server():$/;"	f
 start_FTP_server	yumi_cameras/scripts/standalone_verbose_FTP_server.py	/^def start_FTP_server():$/;"	f
 state_interface_	yumi_hw/include/yumi_hw/yumi_hw.h	/^  hardware_interface::JointStateInterface state_interface_;$/;"	m	class:YumiHW	typeref:typename:hardware_interface::JointStateInterface
 status_	yumi_hw/include/yumi_hw/arm_egm_interface.h	/^  std::shared_ptr<abb::egm::wrapper::Status> status_;$/;"	m	class:YumiEGMInterface	typeref:typename:std::shared_ptr<abb::egm::wrapper::Status>
 stop	yumi_hw/src/yumi_hw/arm_egm_interface.cpp	/^bool YumiEGMInterface::stop() {$/;"	f	class:YumiEGMInterface	typeref:typename:bool
 stopComm_	yumi_hw/include/yumi_gripper_node.h	/^  bool stopComm_;$/;"	m	class:YumiGripperStateInterface	typeref:typename:bool
-stopComm_	yumi_hw_demo/include/yumi_gripper_node.h	/^  bool stopComm_;$/;"	m	class:YumiGripperStateInterface	typeref:typename:bool
 stopEGM	yumi_hw/src/yumi_hw/arm_egm_interface.cpp	/^bool YumiRWSforEGMWrapper::stopEGM() {$/;"	f	class:YumiRWSforEGMWrapper	typeref:typename:bool
 stopThreads	yumi_hw/include/yumi_gripper_node.h	/^  void stopThreads() {$/;"	f	class:YumiGripperStateInterface	typeref:typename:void
 stopThreads	yumi_hw/src/yumi_hw/arm_rws_interface.cpp	/^void YumiRWSInterface::stopThreads() {$/;"	f	class:YumiRWSInterface	typeref:typename:void
-stopThreads	yumi_hw_demo/include/yumi_gripper_node.h	/^  void stopThreads() {$/;"	f	class:YumiGripperStateInterface	typeref:typename:void
 stop_comm_	yumi_hw/include/yumi_hw/arm_rws_interface.h	/^  bool stop_comm_;$/;"	m	class:YumiRWSInterface	typeref:typename:bool
-stop_comm_	yumi_hw_demo/include/yumi_hw/yumi_hw_rws.h	/^  bool stop_comm_;$/;"	m	class:YumiRwsInterface	typeref:typename:bool
 sub	yumi_test_controllers/src/test_traj_vel_control.cpp	/^ros::Subscriber sub;$/;"	v	typeref:typename:ros::Subscriber
 sub	yumi_test_controllers/src/test_vel_control.cpp	/^ros::Subscriber sub;$/;"	v	typeref:typename:ros::Subscriber
 task_	yumi_hw/include/yumi_hw/arm_egm_interface.h	/^  const std::string task_;$/;"	m	class:YumiEGMInterface	typeref:typename:const std::string
@@ -509,9 +391,6 @@ yumi_egm_interface_l_	yumi_hw/include/yumi_hw/yumi_hw_egm.h	/^  std::unique_ptr<
 yumi_egm_interface_r_	yumi_hw/include/yumi_hw/yumi_hw_egm.h	/^  std::unique_ptr<YumiEGMInterface> yumi_egm_interface_r_;$/;"	m	class:YumiHWEGM	typeref:typename:std::unique_ptr<YumiEGMInterface>
 yumi_gripper_node	yumi_hw/CMakeLists.txt	/^add_executable(yumi_gripper_node src\/yumi_gripper_node.cpp)$/;"	t
 yumi_hw	yumi_hw/CMakeLists.txt	/^project(yumi_hw)$/;"	p
-yumi_hw_demo	yumi_hw_demo/CMakeLists.txt	/^project(yumi_hw_demo)$/;"	p
-yumi_hw_example	yumi_hw_demo/CMakeLists.txt	/^add_executable(yumi_hw_example src\/yumi_hw_example.cpp)$/;"	t
-yumi_hw_example_vel_control	yumi_hw_demo/CMakeLists.txt	/^add_executable(yumi_hw_example_vel_control src\/yumi_hw_example_vel_control.cpp)$/;"	t
 yumi_hw_ifce_node	yumi_hw/CMakeLists.txt	/^add_executable(yumi_hw_ifce_node src\/yumi_hw_ifce_node.cpp)$/;"	t
 yumi_launch	yumi_launch/CMakeLists.txt	/^project(yumi_launch)$/;"	p
 yumi_moveit_config	yumi_moveit_config/CMakeLists.txt	/^project(yumi_moveit_config)$/;"	p
@@ -521,9 +400,7 @@ yumi_test_controllers	yumi_test_controllers/CMakeLists.txt	/^project(yumi_test_c
 ~MimicPlugin	gazebo_mimic/src/gazebo_mimic_plugin/mimic_plugin.cpp	/^MimicPlugin::~MimicPlugin()$/;"	f	class:MimicPlugin
 ~YumiEGMInterface	yumi_hw/src/yumi_hw/arm_egm_interface.cpp	/^YumiEGMInterface::~YumiEGMInterface() {}$/;"	f	class:YumiEGMInterface
 ~YumiGripperNode	yumi_hw/include/yumi_gripper_node.h	/^  virtual ~YumiGripperNode() {}$/;"	f	class:YumiGripperNode
-~YumiGripperNode	yumi_hw_demo/include/yumi_gripper_node.h	/^  virtual ~YumiGripperNode() {}$/;"	f	class:YumiGripperNode
 ~YumiGripperStateInterface	yumi_hw/include/yumi_gripper_node.h	/^  ~YumiGripperStateInterface() { stopThreads(); }$/;"	f	class:YumiGripperStateInterface
-~YumiGripperStateInterface	yumi_hw_demo/include/yumi_gripper_node.h	/^  ~YumiGripperStateInterface() { stopThreads(); }$/;"	f	class:YumiGripperStateInterface
 ~YumiHW	yumi_hw/include/yumi_hw/yumi_hw.h	/^  virtual ~YumiHW() {}$/;"	f	class:YumiHW
 ~YumiHWEGM	yumi_hw/src/yumi_hw/yumi_hw_egm.cpp	/^YumiHWEGM::~YumiHWEGM() { $/;"	f	class:YumiHWEGM
 ~YumiHWGazebo	yumi_hw/include/yumi_hw/yumi_hw_gazebo.h	/^  ~YumiHWGazebo() {}$/;"	f	class:YumiHWGazebo
