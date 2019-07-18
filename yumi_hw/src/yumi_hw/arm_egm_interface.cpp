@@ -156,7 +156,6 @@ bool YumiEGMInterface::stop() {
 void YumiEGMInterface::getCurrentJointStates(float (&joint_pos)[N_JOINTS_ARM],
                                              float (&joint_vel)[N_JOINTS_ARM]) {
   egm_interface_->waitForMessage();
-  ROS_INFO_STREAM("Hooray!");
   egm_interface_->read(input_.get());
   copyEGMInputToArray(&*input_, joint_pos, joint_vel);
 }
