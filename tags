@@ -231,6 +231,7 @@ main	yumi_cameras/scripts/ROS_cameras_FTP_server.py	/^def main():$/;"	f
 main	yumi_cameras/scripts/standalone_verbose_FTP_server.py	/^def main():$/;"	f
 main	yumi_cameras/src/rws_continuous_trigger.cpp	/^int main( int argc, char* argv[] )$/;"	f	typeref:typename:int
 main	yumi_hw/src/yumi_gripper_node.cpp	/^int main(int argc, char *argv[]) {$/;"	f	typeref:typename:int
+main	yumi_hw/src/yumi_hw_example_vel_control.cpp	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
 main	yumi_hw/src/yumi_hw_ifce_node.cpp	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
 main	yumi_test_controllers/src/test_traj_vel_control.cpp	/^int main( int argc, char* argv[] )$/;"	f	typeref:typename:int
 main	yumi_test_controllers/src/test_vel_control.cpp	/^int main( int argc, char* argv[] )$/;"	f	typeref:typename:int

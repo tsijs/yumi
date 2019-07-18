@@ -90,9 +90,11 @@ add_library(${PROJECT_NAME}
   ${SOURCEFILES}
 )
 add_executable(yumi_hw_ifce_node src/yumi_hw_ifce_node.cpp)
+add_executable(yumi_hw_vel_example src/yumi_hw_example_vel_control.cpp)
 add_executable(yumi_gripper_node src/yumi_gripper_node.cpp)
 add_dependencies(yumi_gripper_node ${PROJECT_NAME}_generate_messages_cpp)
  
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} )
+target_link_libraries(yumi_hw_vel_example ${catkin_LIBRARIES} ${PROJECT_NAME} simple_message)
 target_link_libraries(yumi_hw_ifce_node ${catkin_LIBRARIES} ${PROJECT_NAME} simple_message)
 target_link_libraries(yumi_gripper_node ${catkin_LIBRARIES} ${PROJECT_NAME} simple_message)
